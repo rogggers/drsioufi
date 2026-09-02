@@ -35,6 +35,16 @@ body { overflow-x: clip; }
 body:not(.fr-active) .lang-fr { display: none !important; }
 body.fr-active .lang-en { display: none !important; }
 
+/* The page's own scrollbar (the vertical track/thumb the browser draws down
+   the right edge) needs to read against BOTH the dark world and the white
+   paper it hands off to. The engine's default thumb colour is a tint of
+   --sc-ink, which is a light colour meant for a dark ground and nearly
+   vanishes over the paper section. The accent has enough contrast against
+   both. */
+@supports (scrollbar-color: auto) {
+  html { scrollbar-color: var(--sc-accent) color-mix(in oklab, var(--paper-ink) 8%, transparent); }
+}
+
 /* ------------------------------------------------------------ fixed bar
    One horizontal bar, full width, the whole time: brand, the jump nav (the
    page's primary navigation, so it does not hide behind a click), and the
@@ -57,9 +67,14 @@ body.fr-active .lang-en { display: none !important; }
 .bar__brand img { height: 24px; width: auto; }
 .bar__brand span { color: var(--paper-ink-soft); font-weight: 500; font-size: var(--sc-t-sm); }
 
+/* Always one horizontal, scrollable strip — never a hamburger. Below the
+   width where all seven labels fit, the strip scrolls sideways instead of
+   wrapping or hiding, and main.js pans it so the current section's label
+   scrolls into view on its own as the reader scrolls the page. */
 .bar__nav {
   display: flex; align-items: center; gap: clamp(0.9rem, 1.6vw, 1.8rem);
   flex: 1 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
 }
 .bar__nav::-webkit-scrollbar { display: none; }
 .bar__nav a {
@@ -71,12 +86,7 @@ body.fr-active .lang-en { display: none !important; }
 .bar__nav a:hover { color: var(--paper-accent); }
 .bar__nav a[aria-current="true"] { color: var(--paper-accent); font-weight: 700; border-color: var(--paper-accent); }
 .bar__nav a:focus-visible { outline: 2px solid var(--paper-accent); outline-offset: 2px; }
-
-.bar__menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; margin: -8px 0 -8px auto; }
-.bar__menu-toggle span { display: block; width: 20px; height: 2px; background: var(--paper-ink); margin: 4px 0; transition: transform var(--sc-d-base) var(--sc-ease-out), opacity var(--sc-d-base) var(--sc-ease-out); }
-.bar__menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.bar__menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.bar__menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+@media (prefers-reduced-motion: reduce) { .bar__nav { scroll-behavior: auto; } }
 
 .lang-toggle { display: flex; border: 1px solid color-mix(in oklab, var(--paper-ink) 25%, transparent); border-radius: var(--sc-r-pill); overflow: hidden; flex: none; }
 .lang-toggle button {
@@ -203,6 +213,16 @@ body.fr-active .lang-en { display: none !important; }
 .paper .sc-label { color: var(--paper-accent); }
 .paper .sc-rule { background: var(--paper-line); }
 .paper--alt { background: var(--paper-surface); }
+
+/* The same "cover upward" seam the paper itself uses against the fixed
+   world (a rounded top edge, a shadow cast onto whatever is above),
+   repeated at every section boundary inside the paper so Expertise and
+   Contact arrive the same way Training Path does, not by plain scroll-past. */
+#expertise, #contact {
+  position: relative;
+  border-radius: clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px) 0 0;
+  box-shadow: 0 -36px 54px -34px rgba(20, 16, 12, 0.32);
+}
 .paper ::selection { background: var(--paper-accent); color: #fff; }
 .paper :focus-visible { outline-color: var(--paper-accent); }
 
@@ -312,23 +332,13 @@ body.fr-active .lang-en { display: none !important; }
   .close-cta { flex-direction: column; align-items: stretch; }
   .cred-shell { max-width: min(30rem, 84vw); }
 
-  /* Bar nav collapses behind the hamburger below 900px: a permanent
-     full-width row of seven labels has nowhere to go on a phone screen. */
-  .bar { flex-wrap: wrap; }
-  .bar__brand { order: 1; }
-  .bar__menu-toggle { display: block; order: 2; }
-  .lang-toggle { order: 3; }
-  .bar__nav {
-    order: 4; flex-basis: 100%; flex-direction: column; align-items: flex-start; gap: 0;
-    max-height: 0; overflow: hidden; opacity: 0;
-    transition: max-height var(--sc-d-base) var(--sc-ease-out), opacity var(--sc-d-base) var(--sc-ease-out);
-  }
-  .bar.is-open .bar__nav { max-height: 60vh; opacity: 1; overflow-y: auto; padding-top: var(--sc-2); }
-  .bar__nav a { width: 100%; padding: 11px 2px; border-bottom: 1px solid color-mix(in oklab, var(--paper-ink) 10%, transparent); }
-  @media (prefers-reduced-motion: reduce) { .bar__nav { transition: none; } }
+  /* Below 900px the strip is tighter and smaller, not hidden: it still
+     scrolls sideways and still pans to the current section on its own. */
+  .bar__brand span { display: none; }
+  .bar__nav { gap: 1rem; }
+  .bar__nav a { font-size: var(--sc-t-xs); }
 }
 @media (max-width: 620px) {
   .expertise-grid, .clinic-grid { grid-template-columns: 1fr; }
-  .bar__brand span { display: none; }
   .world-copy--hero h1 { font-size: var(--sc-t-3xl); }
 }

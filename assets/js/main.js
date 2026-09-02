@@ -1,7 +1,8 @@
 // Dr. Georges Sioufi — page script.
 // scrollcraft.js drives the world and the flow sections. Everything here is
-// bespoke to this page: language toggle and the top nav bar (mobile collapse,
-// current-section highlighting, and a fix for jumping into the world).
+// bespoke to this page: language toggle and the top nav bar (current-section
+// highlighting with the strip panning to follow it, and a fix for jumping
+// into the world).
 
 // ---- language toggle (EN/FR), unchanged mechanism from the previous site --
 (function () {
@@ -45,22 +46,8 @@
 (function () {
   document.addEventListener("DOMContentLoaded", function () {
     var bar = document.querySelector(".bar");
-    var toggle = document.querySelector(".bar__menu-toggle");
     var nav = document.querySelector(".bar__nav");
     if (!bar || !nav) return;
-
-    if (toggle) {
-      toggle.addEventListener("click", function () {
-        var open = bar.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      });
-      nav.querySelectorAll("a").forEach(function (a) {
-        a.addEventListener("click", function () {
-          bar.classList.remove("is-open");
-          toggle.setAttribute("aria-expanded", "false");
-        });
-      });
-    }
 
     var worldRoot = document.querySelector('[data-sc-mode="worldflight"]');
 
@@ -92,10 +79,27 @@
     });
 
     var links = nav.querySelectorAll("a[href^='#']");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Pan the strip so the current label is in view. Only when the strip is
+    // actually scrollable (it isn't, on a wide enough desktop where every
+    // label already fits) and only sideways — never let this cause the page
+    // itself to jump.
+    function panToCurrent(link) {
+      if (!link || nav.scrollWidth <= nav.clientWidth + 1) return;
+      var target = link.offsetLeft - (nav.clientWidth - link.offsetWidth) / 2;
+      target = Math.max(0, Math.min(target, nav.scrollWidth - nav.clientWidth));
+      nav.scrollTo({ left: target, behavior: reduce ? "auto" : "smooth" });
+    }
+
     function setCurrent(id) {
+      var active = null;
       links.forEach(function (l) {
-        l.setAttribute("aria-current", l.getAttribute("href") === "#" + id ? "true" : "false");
+        var isCurrent = l.getAttribute("href") === "#" + id;
+        l.setAttribute("aria-current", isCurrent ? "true" : "false");
+        if (isCurrent) active = l;
       });
+      panToCurrent(active);
     }
 
     // World legs: the engine fires sc:waypoint with the leg's data-sc-waypoint
