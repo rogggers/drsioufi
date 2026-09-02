@@ -38,6 +38,13 @@
     var toggle = document.querySelector(".index__toggle");
     if (!index || !toggle) return;
 
+    // Above 900px the panel is always visible in CSS (see style.css); the
+    // toggle only actually hides/shows anything below that. Keep aria-expanded
+    // honest on load rather than defaulting to "false" over a panel that is,
+    // on a desktop viewport, already on screen.
+    var mq = window.matchMedia && window.matchMedia("(min-width: 901px)");
+    toggle.setAttribute("aria-expanded", mq && mq.matches ? "true" : "false");
+
     toggle.addEventListener("click", function () {
       var open = index.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
@@ -90,9 +97,13 @@
 
 // ---- the signature move: the goniometer reads whole-page scroll progress --
 // Not a kit device. A persistent instrument, driven from raw scroll, that
-// happens to also be the jump index's toggle. Its needle sweeps -60deg to
-// +60deg and its numeric readout climbs 0 to 140 (a real full knee-flexion
-// range) across the whole document, not just the world above.
+// happens to also be the jump index's toggle. The ring fill starts at 12
+// o'clock and grows clockwise (see the -90deg rotate in the markup), so the
+// needle rotates through the exact same 0-360deg clockwise sweep, always
+// pointing at the ring's own leading edge rather than wagging independently
+// of it. The numeric readout is a separate, real figure (0-140deg, a full
+// knee-flexion range) climbing across the whole document, not just the
+// world above.
 (function () {
   document.addEventListener("DOMContentLoaded", function () {
     var sweep = document.querySelector(".index__gauge .arc-sweep");
@@ -111,7 +122,7 @@
       var max = Math.max((doc.scrollHeight || 0) - (window.innerHeight || 0), 1);
       var pct = Math.min(Math.max((window.scrollY || doc.scrollTop || 0) / max, 0), 1);
       sweep.style.strokeDashoffset = (CIRC * (1 - pct)).toFixed(2);
-      var angle = -60 + pct * 120;
+      var angle = pct * 360;
       needle.setAttribute("transform", "rotate(" + angle.toFixed(1) + " 22 22)");
       if (deg) deg.textContent = Math.round(pct * 140) + "°";
     }

@@ -87,10 +87,18 @@ body.fr-active .lang-en { display: none !important; }
 .index__gauge { width: 30px; height: 30px; display: block; }
 .index__gauge .arc-track { stroke: color-mix(in oklab, var(--sc-ink) 22%, transparent); fill: none; stroke-width: 2.4; vector-effect: non-scaling-stroke; }
 .index__gauge .arc-sweep { stroke: var(--sc-accent); fill: none; stroke-width: 2.4; stroke-linecap: round; vector-effect: non-scaling-stroke; transition: stroke-dashoffset 80ms linear; }
-.index__gauge .needle { stroke: var(--sc-ink); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.index__gauge .needle { stroke: var(--sc-ink); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; transition: transform 80ms linear; transform-origin: 22px 22px; }
 .index__gauge .pivot { fill: var(--sc-accent); stroke: none; }
-@media (prefers-reduced-motion: reduce) { .index__gauge .arc-sweep { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .index__gauge .arc-sweep, .index__gauge .needle { transition: none; }
+}
 
+/* Always visible above the mobile breakpoint: this is the site's primary
+   navigation, and a jump index that has to be discovered by clicking an icon
+   first is not a "button to jump between sections", it is a puzzle. The
+   toggle button still exists (it also carries the gauge), and below 900px,
+   where a permanent panel would crowd the hero, it goes back to hiding
+   behind it. */
 .index__panel {
   list-style: none; margin: 0; padding: var(--sc-3);
   display: flex; flex-direction: column; gap: 2px;
@@ -98,10 +106,9 @@ body.fr-active .lang-en { display: none !important; }
   border: 1px solid color-mix(in oklab, var(--sc-ink) 16%, transparent);
   border-radius: var(--sc-r-md); box-shadow: var(--sc-e2); backdrop-filter: blur(10px);
   min-width: 13rem;
-  opacity: 0; transform: translateY(-6px) scale(0.98); pointer-events: none;
+  opacity: 1; transform: none; pointer-events: auto;
   transition: opacity var(--sc-d-base) var(--sc-ease-out), transform var(--sc-d-base) var(--sc-ease-out);
 }
-.index.is-open .index__panel { opacity: 1; transform: none; pointer-events: auto; }
 .index__panel a {
   display: flex; align-items: center; gap: 10px; text-decoration: none;
   color: var(--sc-ink-soft); font-size: var(--sc-t-sm); padding: 8px 10px;
@@ -120,6 +127,18 @@ body.fr-active .lang-en { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .index__panel { transition: none; }
 }
+
+/* ---------------------------------------------------------------- legs
+   These are portrait photographs (faces sit in the upper third) inside a
+   full-bleed landscape stage. object-fit:cover's default 50% 50% centers the
+   crop on the image's vertical middle, which on a wide/short desktop
+   viewport lands somewhere around the chin or chest, not the face. Biasing
+   toward the top has no effect on a narrow/tall phone viewport, where the
+   image's height already fits without vertical cropping. */
+#leg-welcome .sc-world__poster     { object-position: 50% 6%; }
+#leg-credentials .sc-world__poster { object-position: 50% 8%; }
+#leg-philosophy .sc-world__poster  { object-position: 50% 4%; }
+#leg-book .sc-world__poster        { object-position: 50% 6%; }
 
 /* ------------------------------------------------------------ world copy
    Contrast over a moving photograph cannot be guaranteed by a single shared
@@ -290,6 +309,11 @@ body.fr-active .lang-en { display: none !important; }
 .clinic-card h3 { margin: var(--sc-2) 0 2px; font-size: var(--sc-t-lg); }
 .clinic-card .city { display: block; color: var(--paper-ink-soft); font-size: var(--sc-t-sm); margin-bottom: var(--sc-4); }
 .clinic-card .addr { font-size: var(--sc-t-sm); color: var(--paper-ink); margin: 0 0 var(--sc-3); }
+.clinic-map {
+  border-radius: var(--sc-r-md); overflow: hidden; margin: 0 0 var(--sc-3);
+  border: 1px solid var(--paper-line); aspect-ratio: 16 / 10; background: var(--paper-line);
+}
+.clinic-map iframe { width: 100%; height: 100%; border: 0; display: block; filter: grayscale(0.25) contrast(1.02); }
 .clinic-card .hours { font-size: var(--sc-t-xs); color: var(--paper-ink-soft); margin: 0 0 var(--sc-3); }
 .clinic-card .phone { font-family: var(--sc-font-mono); font-weight: 600; color: var(--paper-ink); font-size: var(--sc-t-lg); letter-spacing: var(--sc-track-snug); display: block; margin-bottom: var(--sc-3); }
 .clinic-card .phone a { color: var(--paper-ink); }
@@ -317,6 +341,11 @@ body.fr-active .lang-en { display: none !important; }
   .path-note { width: 52%; left: -0.75rem; bottom: -1rem; }
   .close-cta { flex-direction: column; align-items: stretch; }
   .cred-shell { max-width: min(30rem, 84vw); }
+
+  .index__panel {
+    opacity: 0; transform: translateY(-6px) scale(0.98); pointer-events: none;
+  }
+  .index.is-open .index__panel { opacity: 1; transform: none; pointer-events: auto; }
 }
 @media (max-width: 620px) {
   .expertise-grid, .clinic-grid { grid-template-columns: 1fr; }
