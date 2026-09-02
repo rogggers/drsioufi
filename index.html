@@ -22,34 +22,26 @@
     <img src="assets/img/logo-icon.png" alt="">
     Dr. Georges Sioufi <span>MD, FRCSC</span>
   </a>
-  <div class="bar__right">
-    <div class="lang-toggle">
-      <button data-lang-btn="en" class="active">EN</button>
-      <button data-lang-btn="fr">FR</button>
-    </div>
+
+  <button class="bar__menu-toggle" aria-expanded="false" aria-controls="bar-nav" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="bar__nav" id="bar-nav" aria-label="Jump to section">
+    <a href="#leg-welcome"><span class="lang-en">Welcome</span><span class="lang-fr">Bienvenue</span></a>
+    <a href="#leg-credentials"><span class="lang-en">Credentials</span><span class="lang-fr">Formation</span></a>
+    <a href="#leg-philosophy"><span class="lang-en">Philosophy</span><span class="lang-fr">Philosophie</span></a>
+    <a href="#leg-book"><span class="lang-en">Book a Consultation</span><span class="lang-fr">Rendez-vous</span></a>
+    <a href="#about"><span class="lang-en">Training Path</span><span class="lang-fr">Parcours</span></a>
+    <a href="#expertise"><span class="lang-en">Expertise</span><span class="lang-fr">Expertise</span></a>
+    <a href="#contact"><span class="lang-en">Clinics &amp; Contact</span><span class="lang-fr">Cliniques et contact</span></a>
+  </nav>
+
+  <div class="lang-toggle">
+    <button data-lang-btn="en" class="active">EN</button>
+    <button data-lang-btn="fr">FR</button>
   </div>
 </header>
-
-<nav class="index" aria-label="Jump to section">
-  <button class="index__toggle" aria-expanded="false" aria-controls="index-panel">
-    <svg class="index__gauge" viewBox="0 0 44 44" aria-hidden="true" focusable="false">
-      <circle class="arc-track" cx="22" cy="22" r="18" fill="none"></circle>
-      <circle class="arc-sweep" cx="22" cy="22" r="18" fill="none" stroke-dasharray="113.1" stroke-dashoffset="113.1" transform="rotate(-90 22 22)"></circle>
-      <line class="needle" x1="22" y1="22" x2="22" y2="8"></line>
-      <circle class="pivot" cx="22" cy="22" r="2"></circle>
-    </svg>
-    <span class="index__deg">0°</span>
-  </button>
-  <ul class="index__panel" id="index-panel">
-    <li><a href="#leg-welcome"><span class="lang-en">Welcome</span><span class="lang-fr">Bienvenue</span></a></li>
-    <li><a href="#leg-credentials"><span class="lang-en">Credentials</span><span class="lang-fr">Formation</span></a></li>
-    <li><a href="#leg-philosophy"><span class="lang-en">Philosophy</span><span class="lang-fr">Philosophie</span></a></li>
-    <li><a href="#leg-book"><span class="lang-en">Book a Consultation</span><span class="lang-fr">Rendez-vous</span></a></li>
-    <li><a href="#about"><span class="lang-en">Training Path</span><span class="lang-fr">Parcours</span></a></li>
-    <li><a href="#expertise"><span class="lang-en">Expertise</span><span class="lang-fr">Expertise</span></a></li>
-    <li><a href="#contact"><span class="lang-en">Clinics &amp; Contact</span><span class="lang-fr">Cliniques et contact</span></a></li>
-  </ul>
-</nav>
 
 <main id="top">
 
@@ -129,11 +121,7 @@
           <span class="lang-fr">Les rendez-vous se prennent par téléphone, directement auprès de la clinique.</span>
         </h2>
         <div class="close-cta">
-          <a class="btn btn-primary" href="tel:+15147478185">
-            <span class="lang-en">Call Physimed — 514-747-8185</span>
-            <span class="lang-fr">Appeler Physimed — 514-747-8185</span>
-          </a>
-          <a class="btn btn-ghost" href="#contact">
+          <a class="btn btn-primary" href="#contact">
             <span class="lang-en">See all clinics &amp; directions</span>
             <span class="lang-fr">Voir toutes les cliniques</span>
           </a>
@@ -323,20 +311,6 @@
           </div>
         </div>
 
-        <div class="info-split" data-sc-in data-sc-stagger="70">
-          <div>
-            <span class="sc-label"><span class="lang-en">Hospital Affiliation</span><span class="lang-fr">Affiliation hospitalière</span></span>
-            <h3 style="margin:8px 0 6px;">Hôpital Santa Cabrini</h3>
-            <p class="lang-en">Dr. Sioufi is a clinical instructor at Hôpital Santa Cabrini (5655, rue Saint-Zotique Est, Montréal, QC H1T 1P7), where surgical procedures may be performed following your clinic consultation.</p>
-            <p class="lang-fr">Le Dr Sioufi est chargé d'enseignement clinique à l'Hôpital Santa Cabrini (5655, rue Saint-Zotique Est, Montréal, QC H1T 1P7), où les interventions chirurgicales peuvent être réalisées à la suite de votre consultation.</p>
-          </div>
-          <div>
-            <span class="sc-label"><span class="lang-en">For Referring Physicians</span><span class="lang-fr">Pour les médecins référents</span></span>
-            <h3 style="margin:8px 0 6px;"><span class="lang-en">Specialist referral</span><span class="lang-fr">Référence spécialisée</span></h3>
-            <p class="lang-en">Please contact the clinic of your choice directly by phone to arrange a specialist consultation for your patient.</p>
-            <p class="lang-fr">Veuillez communiquer directement par téléphone avec la clinique de votre choix pour organiser une consultation spécialisée.</p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -358,7 +332,7 @@
               <li><a href="#about"><span class="lang-en">Training Path</span><span class="lang-fr">Parcours</span></a></li>
               <li><a href="#expertise"><span class="lang-en">Expertise</span><span class="lang-fr">Expertise</span></a></li>
               <li><a href="#contact"><span class="lang-en">Contact &amp; Location</span><span class="lang-fr">Contact et localisation</span></a></li>
-              <li><a href="https://www.linkedin.com/in/dr-georges-r-sioufi-m-d-frcs-99b70a358/" target="_blank" rel="noopener">LinkedIn</a></li>
+              <li><a href="https://www.linkedin.com/in/dr-georges-sioufi-md-frcs-99b70a358/" target="_blank" rel="noopener">LinkedIn</a></li>
             </ul>
           </div>
           <div>

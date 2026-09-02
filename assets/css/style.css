@@ -1,9 +1,8 @@
 /* Dr. Georges Sioufi — theme + page composition, built on scrollcraft.css.
-   Visual language carried over from the previous site: a goniometer (the
-   hinged protractor a surgeon uses to read a joint's range of motion) as the
-   page's own scroll gauge. One instrument, now doing one job instead of
-   three. See scrollcraft/builds/drsioufi/BRIEF.md for the brief this
-   implements. */
+   See scrollcraft/builds/drsioufi/BRIEF.md for the original brief; the
+   goniometer scroll gauge and the collapsible jump-index panel it carried
+   were removed after live feedback in favour of a plain, always-visible
+   horizontal nav bar. */
 
 :root {
   /* ---- brand: warm near-black world, one clay accent, two lightnesses ---- */
@@ -28,7 +27,6 @@
   --paper-line:     #e4dccb;
   --paper-accent:   #b1502a;
 
-  --gauge-z: 90;
   --bar-z: 90;
 }
 
@@ -37,96 +35,58 @@ body { overflow-x: clip; }
 body:not(.fr-active) .lang-fr { display: none !important; }
 body.fr-active .lang-en { display: none !important; }
 
-/* ------------------------------------------------------------ fixed bar */
+/* ------------------------------------------------------------ fixed bar
+   One horizontal bar, full width, the whole time: brand, the jump nav (the
+   page's primary navigation, so it does not hide behind a click), and the
+   language toggle. Light ground with dark ink on purpose — it sits over a
+   dark cinematic world for the first four sections, so it needs its own
+   opaque-enough backing to read as "the site's nav", not a caption. */
 .bar {
   position: fixed; inset: 0 0 auto 0; z-index: var(--bar-z);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: var(--sc-3) var(--sc-gutter);
-  background: color-mix(in oklab, var(--sc-canvas) 78%, transparent);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid color-mix(in oklab, var(--sc-ink) 12%, transparent);
+  display: flex; align-items: center; gap: var(--sc-5);
+  padding: 10px var(--sc-gutter);
+  background: color-mix(in oklab, var(--paper-surface) 90%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in oklab, var(--paper-ink) 10%, transparent);
 }
 .bar__brand {
   display: flex; align-items: center; gap: var(--sc-2);
   font-family: var(--sc-font-display); font-weight: 600; font-size: var(--sc-t-base);
-  color: var(--sc-ink); text-decoration: none; white-space: nowrap;
+  color: var(--paper-ink); text-decoration: none; white-space: nowrap; flex: none;
 }
-.bar__brand img { height: 26px; width: auto; }
-.bar__brand span { color: var(--sc-ink-soft); font-weight: 500; font-size: var(--sc-t-sm); }
-.bar__right { display: flex; align-items: center; gap: var(--sc-4); }
+.bar__brand img { height: 24px; width: auto; }
+.bar__brand span { color: var(--paper-ink-soft); font-weight: 500; font-size: var(--sc-t-sm); }
 
-.lang-toggle { display: flex; border: 1px solid color-mix(in oklab, var(--sc-ink) 30%, transparent); border-radius: var(--sc-r-pill); overflow: hidden; }
+.bar__nav {
+  display: flex; align-items: center; gap: clamp(0.9rem, 1.6vw, 1.8rem);
+  flex: 1 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: none;
+}
+.bar__nav::-webkit-scrollbar { display: none; }
+.bar__nav a {
+  color: var(--paper-ink); text-decoration: none; white-space: nowrap;
+  font-size: var(--sc-t-sm); padding: 6px 2px; flex: none;
+  border-bottom: 2px solid transparent;
+  transition: color var(--sc-d-fast), border-color var(--sc-d-fast);
+}
+.bar__nav a:hover { color: var(--paper-accent); }
+.bar__nav a[aria-current="true"] { color: var(--paper-accent); font-weight: 700; border-color: var(--paper-accent); }
+.bar__nav a:focus-visible { outline: 2px solid var(--paper-accent); outline-offset: 2px; }
+
+.bar__menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; margin: -8px 0 -8px auto; }
+.bar__menu-toggle span { display: block; width: 20px; height: 2px; background: var(--paper-ink); margin: 4px 0; transition: transform var(--sc-d-base) var(--sc-ease-out), opacity var(--sc-d-base) var(--sc-ease-out); }
+.bar__menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.bar__menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.bar__menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.lang-toggle { display: flex; border: 1px solid color-mix(in oklab, var(--paper-ink) 25%, transparent); border-radius: var(--sc-r-pill); overflow: hidden; flex: none; }
 .lang-toggle button {
-  border: none; background: transparent; color: var(--sc-ink); cursor: pointer;
+  border: none; background: transparent; color: var(--paper-ink); cursor: pointer;
   font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); font-weight: 600;
   letter-spacing: var(--sc-track-wide); padding: 5px 12px;
   transition: background var(--sc-d-fast) var(--sc-ease-out), color var(--sc-d-fast) var(--sc-ease-out);
 }
-.lang-toggle button.active { background: var(--sc-accent); color: var(--sc-accent-ink); }
-.lang-toggle button:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
-
-/* --------------------------------------------------------- index / gauge
-   The signature move: a goniometer that reads the visitor's own progress
-   through the page in degrees, and doubles as the top-right jump index. */
-.index {
-  position: fixed; top: var(--sc-3); right: var(--sc-gutter); z-index: var(--gauge-z);
-  display: flex; flex-direction: column; align-items: flex-end; gap: var(--sc-2);
-  margin-top: 52px;
-}
-.index__toggle {
-  display: flex; align-items: center; gap: var(--sc-2);
-  background: color-mix(in oklab, var(--sc-surface) 88%, transparent);
-  border: 1px solid color-mix(in oklab, var(--sc-ink) 16%, transparent);
-  border-radius: var(--sc-r-pill); padding: 6px 8px 6px 14px; cursor: pointer;
-  color: var(--sc-ink); font-family: var(--sc-font-mono); font-size: var(--sc-t-xs);
-  letter-spacing: var(--sc-track-wide); text-transform: uppercase;
-  box-shadow: var(--sc-e1); backdrop-filter: blur(8px);
-}
-.index__toggle:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
-.index__deg { font-variant-numeric: tabular-nums; color: var(--sc-accent); font-weight: 600; min-width: 2.6em; text-align: right; }
-.index__gauge { width: 30px; height: 30px; display: block; }
-.index__gauge .arc-track { stroke: color-mix(in oklab, var(--sc-ink) 22%, transparent); fill: none; stroke-width: 2.4; vector-effect: non-scaling-stroke; }
-.index__gauge .arc-sweep { stroke: var(--sc-accent); fill: none; stroke-width: 2.4; stroke-linecap: round; vector-effect: non-scaling-stroke; transition: stroke-dashoffset 80ms linear; }
-.index__gauge .needle { stroke: var(--sc-ink); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; transition: transform 80ms linear; transform-origin: 22px 22px; }
-.index__gauge .pivot { fill: var(--sc-accent); stroke: none; }
-@media (prefers-reduced-motion: reduce) {
-  .index__gauge .arc-sweep, .index__gauge .needle { transition: none; }
-}
-
-/* Always visible above the mobile breakpoint: this is the site's primary
-   navigation, and a jump index that has to be discovered by clicking an icon
-   first is not a "button to jump between sections", it is a puzzle. The
-   toggle button still exists (it also carries the gauge), and below 900px,
-   where a permanent panel would crowd the hero, it goes back to hiding
-   behind it. */
-.index__panel {
-  list-style: none; margin: 0; padding: var(--sc-3);
-  display: flex; flex-direction: column; gap: 2px;
-  background: color-mix(in oklab, var(--sc-surface) 92%, transparent);
-  border: 1px solid color-mix(in oklab, var(--sc-ink) 16%, transparent);
-  border-radius: var(--sc-r-md); box-shadow: var(--sc-e2); backdrop-filter: blur(10px);
-  min-width: 13rem;
-  opacity: 1; transform: none; pointer-events: auto;
-  transition: opacity var(--sc-d-base) var(--sc-ease-out), transform var(--sc-d-base) var(--sc-ease-out);
-}
-.index__panel a {
-  display: flex; align-items: center; gap: 10px; text-decoration: none;
-  color: var(--sc-ink-soft); font-size: var(--sc-t-sm); padding: 8px 10px;
-  border-radius: var(--sc-r-sm); transition: color var(--sc-d-fast), background var(--sc-d-fast);
-}
-.index__panel a::before {
-  content: ""; width: 6px; height: 6px; border-radius: 50%; flex: none;
-  border: 1px solid var(--sc-ink-soft); background: transparent;
-  transition: background var(--sc-d-fast), border-color var(--sc-d-fast);
-}
-.index__panel a:hover { color: var(--sc-ink); background: color-mix(in oklab, var(--sc-ink) 6%, transparent); }
-.index__panel a[aria-current="true"] { color: var(--sc-ink); font-weight: 600; }
-.index__panel a[aria-current="true"]::before { background: var(--sc-accent); border-color: var(--sc-accent); }
-.index__panel a:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
-
-@media (prefers-reduced-motion: reduce) {
-  .index__panel { transition: none; }
-}
+.lang-toggle button.active { background: var(--paper-accent); color: #fff; }
+.lang-toggle button:focus-visible { outline: 2px solid var(--paper-accent); outline-offset: 2px; }
 
 /* ---------------------------------------------------------------- legs
    These are portrait photographs (faces sit in the upper third) inside a
@@ -139,6 +99,16 @@ body.fr-active .lang-en { display: none !important; }
 #leg-credentials .sc-world__poster { object-position: 50% 8%; }
 #leg-philosophy .sc-world__poster  { object-position: 50% 4%; }
 #leg-book .sc-world__poster        { object-position: 50% 6%; }
+
+/* The four hero photos read as framed portraits, not a full-bleed cinema
+   screen: constrain each poster's width and center it on the canvas colour,
+   which shows through as a margin on either side. The compound selector
+   (two classes) is deliberate — it needs to out-specificity the engine's own
+   ".sc-world__seg > :is(video,img,canvas)" rule, which sets width:100%. */
+.sc-world__seg > .sc-world__poster {
+  width: min(64rem, 80vw);
+  margin-inline: auto;
+}
 
 /* ------------------------------------------------------------ world copy
    Contrast over a moving photograph cannot be guaranteed by a single shared
@@ -335,22 +305,30 @@ body.fr-active .lang-en { display: none !important; }
 
 /* ============================================================ responsive */
 @media (max-width: 900px) {
-  .path-grid, .practice-strip, .info-split { grid-template-columns: 1fr; }
+  .path-grid, .practice-strip { grid-template-columns: 1fr; }
   .expertise-grid, .clinic-grid { grid-template-columns: 1fr 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
   .path-note { width: 52%; left: -0.75rem; bottom: -1rem; }
   .close-cta { flex-direction: column; align-items: stretch; }
   .cred-shell { max-width: min(30rem, 84vw); }
 
-  .index__panel {
-    opacity: 0; transform: translateY(-6px) scale(0.98); pointer-events: none;
+  /* Bar nav collapses behind the hamburger below 900px: a permanent
+     full-width row of seven labels has nowhere to go on a phone screen. */
+  .bar { flex-wrap: wrap; }
+  .bar__brand { order: 1; }
+  .bar__menu-toggle { display: block; order: 2; }
+  .lang-toggle { order: 3; }
+  .bar__nav {
+    order: 4; flex-basis: 100%; flex-direction: column; align-items: flex-start; gap: 0;
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height var(--sc-d-base) var(--sc-ease-out), opacity var(--sc-d-base) var(--sc-ease-out);
   }
-  .index.is-open .index__panel { opacity: 1; transform: none; pointer-events: auto; }
+  .bar.is-open .bar__nav { max-height: 60vh; opacity: 1; overflow-y: auto; padding-top: var(--sc-2); }
+  .bar__nav a { width: 100%; padding: 11px 2px; border-bottom: 1px solid color-mix(in oklab, var(--paper-ink) 10%, transparent); }
+  @media (prefers-reduced-motion: reduce) { .bar__nav { transition: none; } }
 }
 @media (max-width: 620px) {
   .expertise-grid, .clinic-grid { grid-template-columns: 1fr; }
   .bar__brand span { display: none; }
-  .index { right: var(--sc-gutter); }
-  .index__panel { min-width: 12rem; }
   .world-copy--hero h1 { font-size: var(--sc-t-3xl); }
 }

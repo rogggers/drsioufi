@@ -1,7 +1,7 @@
 // Dr. Georges Sioufi — page script.
 // scrollcraft.js drives the world and the flow sections. Everything here is
-// bespoke to this page: language toggle, the top-right jump index, and the
-// signature move (the goniometer gauge reading whole-page scroll progress).
+// bespoke to this page: language toggle and the top nav bar (mobile collapse,
+// current-section highlighting, and a fix for jumping into the world).
 
 // ---- language toggle (EN/FR), unchanged mechanism from the previous site --
 (function () {
@@ -31,38 +31,67 @@
   });
 })();
 
-// ---- the top-right index: toggle open/closed, highlight current section --
+// ---- the top nav bar: mobile collapse, current-section highlight, and a
+// working jump into the world -----------------------------------------------
+//
+// Anchor links into the four world legs (#leg-welcome etc.) cannot rely on
+// the browser's native hash-jump: those elements live inside [data-sc-world],
+// which is position:fixed. A fixed element's box does not move with the
+// page, so "scroll this element into view" has no meaningful document
+// position to compute from, and the native jump silently does nothing. The
+// fix is to work out each leg's own place on the (very real) scroll track
+// from the same data-sc-w weights the engine itself reads, and scroll there
+// directly.
 (function () {
   document.addEventListener("DOMContentLoaded", function () {
-    var index = document.querySelector(".index");
-    var toggle = document.querySelector(".index__toggle");
-    if (!index || !toggle) return;
+    var bar = document.querySelector(".bar");
+    var toggle = document.querySelector(".bar__menu-toggle");
+    var nav = document.querySelector(".bar__nav");
+    if (!bar || !nav) return;
 
-    // Above 900px the panel is always visible in CSS (see style.css); the
-    // toggle only actually hides/shows anything below that. Keep aria-expanded
-    // honest on load rather than defaulting to "false" over a panel that is,
-    // on a desktop viewport, already on screen.
-    var mq = window.matchMedia && window.matchMedia("(min-width: 901px)");
-    toggle.setAttribute("aria-expanded", mq && mq.matches ? "true" : "false");
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        var open = bar.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      nav.querySelectorAll("a").forEach(function (a) {
+        a.addEventListener("click", function () {
+          bar.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
 
-    toggle.addEventListener("click", function () {
-      var open = index.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    document.addEventListener("click", function (e) {
-      if (!index.contains(e.target)) index.classList.remove("is-open");
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") index.classList.remove("is-open");
-    });
-    index.querySelectorAll(".index__panel a").forEach(function (a) {
-      a.addEventListener("click", function () {
-        index.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
+    var worldRoot = document.querySelector('[data-sc-mode="worldflight"]');
+
+    function scrollToLeg(id) {
+      var seg = document.getElementById(id);
+      if (!seg || !worldRoot) return false;
+      var segs = Array.prototype.slice.call(worldRoot.querySelectorAll("[data-sc-segment]"));
+      var vh = window.innerHeight;
+      var worldTop = worldRoot.getBoundingClientRect().top + (window.scrollY || 0);
+      var offset = 0;
+      for (var i = 0; i < segs.length; i++) {
+        if (segs[i] === seg) break;
+        offset += parseFloat(segs[i].getAttribute("data-sc-w")) || 1.3;
+      }
+      // Land a little way into the leg, not right on the seam, so its own
+      // copy has already started arriving rather than the tail end of the
+      // previous leg's.
+      var target = worldTop + (offset + 0.12) * vh;
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: target, behavior: reduce ? "auto" : "smooth" });
+      return true;
+    }
+
+    nav.querySelectorAll('a[href^="#leg-"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var id = a.getAttribute("href").slice(1);
+        if (scrollToLeg(id)) e.preventDefault();
       });
     });
 
-    var links = index.querySelectorAll(".index__panel a[href^='#']");
+    var links = nav.querySelectorAll("a[href^='#']");
     function setCurrent(id) {
       links.forEach(function (l) {
         l.setAttribute("aria-current", l.getAttribute("href") === "#" + id ? "true" : "false");
@@ -70,8 +99,7 @@
     }
 
     // World legs: the engine fires sc:waypoint with the leg's data-sc-waypoint
-    // label as it becomes current. Map those labels to index hrefs.
-    var worldRoot = document.querySelector('[data-sc-mode="worldflight"]');
+    // label as it becomes current. Map those labels to nav hrefs.
     if (worldRoot) {
       worldRoot.addEventListener("sc:waypoint", function (e) {
         var label = e.detail && e.detail.label;
@@ -81,8 +109,7 @@
       });
     }
 
-    // Flow sections below the world: plain IntersectionObserver, same as the
-    // previous site's section-nav.
+    // Flow sections below the world: plain IntersectionObserver.
     var sections = Array.prototype.slice.call(document.querySelectorAll(".paper section[id]"));
     if (sections.length && "IntersectionObserver" in window) {
       var obs = new IntersectionObserver(function (entries) {
@@ -92,48 +119,6 @@
       }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
       sections.forEach(function (s) { obs.observe(s); });
     }
-  });
-})();
-
-// ---- the signature move: the goniometer reads whole-page scroll progress --
-// Not a kit device. A persistent instrument, driven from raw scroll, that
-// happens to also be the jump index's toggle. The ring fill starts at 12
-// o'clock and grows clockwise (see the -90deg rotate in the markup), so the
-// needle rotates through the exact same 0-360deg clockwise sweep, always
-// pointing at the ring's own leading edge rather than wagging independently
-// of it. The numeric readout is a separate, real figure (0-140deg, a full
-// knee-flexion range) climbing across the whole document, not just the
-// world above.
-(function () {
-  document.addEventListener("DOMContentLoaded", function () {
-    var sweep = document.querySelector(".index__gauge .arc-sweep");
-    var needle = document.querySelector(".index__gauge .needle");
-    var deg = document.querySelector(".index__deg");
-    if (!sweep || !needle) return;
-
-    var CIRC = 2 * Math.PI * 18; // r=18, matches the circle in the markup
-    sweep.style.strokeDasharray = CIRC.toFixed(2);
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    var ticking = false;
-    function update() {
-      ticking = false;
-      var doc = document.documentElement;
-      var max = Math.max((doc.scrollHeight || 0) - (window.innerHeight || 0), 1);
-      var pct = Math.min(Math.max((window.scrollY || doc.scrollTop || 0) / max, 0), 1);
-      sweep.style.strokeDashoffset = (CIRC * (1 - pct)).toFixed(2);
-      var angle = pct * 360;
-      needle.setAttribute("transform", "rotate(" + angle.toFixed(1) + " 22 22)");
-      if (deg) deg.textContent = Math.round(pct * 140) + "°";
-    }
-    document.addEventListener("scroll", function () {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }, { passive: true });
-    window.addEventListener("resize", update);
-    update();
-    // A worldflight resizes its own spacer asynchronously (fonts, layout);
-    // give the gauge a second pass once that has settled.
-    setTimeout(update, 400);
   });
 })();
 
