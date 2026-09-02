@@ -51,9 +51,18 @@
 
     var worldRoot = document.querySelector('[data-sc-mode="worldflight"]');
 
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     function scrollToLeg(id) {
       var seg = document.getElementById(id);
       if (!seg || !worldRoot) return false;
+      // "Home" is the welcome leg, and Home means the very top of the page,
+      // not 12% into whatever comes first — a plain 0 is both correct and
+      // simpler than computing an offset for it.
+      if (id === "leg-welcome") {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        return true;
+      }
       var segs = Array.prototype.slice.call(worldRoot.querySelectorAll("[data-sc-segment]"));
       var vh = window.innerHeight;
       var worldTop = worldRoot.getBoundingClientRect().top + (window.scrollY || 0);
@@ -66,12 +75,13 @@
       // copy has already started arriving rather than the tail end of the
       // previous leg's.
       var target = worldTop + (offset + 0.12) * vh;
-      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      window.scrollTo({ top: target, behavior: reduce ? "auto" : "smooth" });
+      window.scrollTo({ top: target, behavior: reduceMotion ? "auto" : "smooth" });
       return true;
     }
 
-    nav.querySelectorAll('a[href^="#leg-"]').forEach(function (a) {
+    // Document-wide, not just the nav bar: the footer's own "Home" link
+    // points at #leg-welcome too, and needs the exact same fix.
+    document.querySelectorAll('a[href^="#leg-"]').forEach(function (a) {
       a.addEventListener("click", function (e) {
         var id = a.getAttribute("href").slice(1);
         if (scrollToLeg(id)) e.preventDefault();
@@ -79,7 +89,6 @@
     });
 
     var links = nav.querySelectorAll("a[href^='#']");
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Pan the strip so the current label is in view. Only when the strip is
     // actually scrollable (it isn't, on a wide enough desktop where every
@@ -89,7 +98,7 @@
       if (!link || nav.scrollWidth <= nav.clientWidth + 1) return;
       var target = link.offsetLeft - (nav.clientWidth - link.offsetWidth) / 2;
       target = Math.max(0, Math.min(target, nav.scrollWidth - nav.clientWidth));
-      nav.scrollTo({ left: target, behavior: reduce ? "auto" : "smooth" });
+      nav.scrollTo({ left: target, behavior: reduceMotion ? "auto" : "smooth" });
     }
 
     function setCurrent(id) {
@@ -123,6 +132,18 @@
       }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
       sections.forEach(function (s) { obs.observe(s); });
     }
+
+    // Resizing the window (or rotating a tablet) can change whether the
+    // strip is even scrollable, so re-pan to whichever label is current.
+    var resizeTick = null;
+    window.addEventListener("resize", function () {
+      if (resizeTick) return;
+      resizeTick = requestAnimationFrame(function () {
+        resizeTick = null;
+        var active = nav.querySelector('a[aria-current="true"]');
+        panToCurrent(active);
+      });
+    });
   });
 })();
 

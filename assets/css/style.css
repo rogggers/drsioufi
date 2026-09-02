@@ -42,8 +42,17 @@ body.fr-active .lang-en { display: none !important; }
    vanishes over the paper section. The accent has enough contrast against
    both. */
 @supports (scrollbar-color: auto) {
-  html { scrollbar-color: var(--sc-accent) color-mix(in oklab, var(--paper-ink) 8%, transparent); }
+  html { scrollbar-color: var(--sc-accent) color-mix(in oklab, var(--paper-ink) 8%, transparent); scrollbar-width: auto; }
 }
+/* Firefox reads scrollbar-color above; Chrome, Edge and Safari read this
+   instead (Safari does not support scrollbar-color at all), so both are
+   needed for the thumb to actually show up everywhere. A visible width and
+   a solid fill, not the 6px hairline "thin" reads as invisible on a lot of
+   displays. */
+html::-webkit-scrollbar { width: 12px; height: 12px; }
+html::-webkit-scrollbar-track { background: color-mix(in oklab, var(--paper-ink) 8%, transparent); }
+html::-webkit-scrollbar-thumb { background: var(--sc-accent); border-radius: 999px; }
+html::-webkit-scrollbar-thumb:hover { background: color-mix(in oklab, var(--sc-accent) 82%, black); }
 
 /* ------------------------------------------------------------ fixed bar
    One horizontal bar, full width, the whole time: brand, the jump nav (the
@@ -288,6 +297,10 @@ body.fr-active .lang-en { display: none !important; }
   border-radius: var(--sc-r-md); padding: var(--sc-4) var(--sc-5); margin: 0 0 var(--sc-7);
 }
 .notice strong { color: var(--paper-ink); }
+
+.info-line { margin: var(--sc-8) 0 0; font-size: var(--sc-t-sm); color: var(--paper-ink-soft); }
+.info-line a { color: var(--paper-ink); font-weight: 600; }
+.info-line a:hover { color: var(--paper-accent); }
 
 .clinic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sc-4); }
 .clinic-card {
