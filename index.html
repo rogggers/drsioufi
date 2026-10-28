@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Dr. Georges Sioufi, MD, FRCS — Orthopaedic Surgeon, Montreal</title>
-<meta name="description" content="Dr. Georges Sioufi is a Montreal-based orthopaedic surgeon with over 30 years of experience in knee and hip reconstruction, the Oxford partial knee technique, and complex trauma surgery. Call to book a consultation.">
+<title>Dr.&nbsp;Georges Sioufi, MD, FRCS&nbsp;— Orthopaedic Surgeon, Montreal</title>
+<meta name="description" content="Dr.&nbsp;Georges Sioufi is a Montreal-based orthopaedic surgeon with over 30 years of experience in knee and hip reconstruction, the Oxford partial knee technique, and complex trauma surgery. Call to book a consultation.">
 <link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Outfit:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/scrollcraft.css?v=4">
-<link rel="stylesheet" href="assets/css/style.css?v=4">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Outfit:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/scrollcraft.css?v=7">
+<link rel="stylesheet" href="assets/css/style.css?v=7">
 </head>
 <body>
 
@@ -18,9 +18,9 @@
 <div class="sc-grain" aria-hidden="true"></div>
 
 <header class="bar">
-  <a href="#top" class="bar__brand">
+  <a href="#leg-welcome" class="bar__brand">
     <img src="assets/img/logo-icon.png" alt="">
-    Dr. Georges Sioufi <span>MD, FRCS</span>
+    Dr.&nbsp;Georges Sioufi <span>MD, FRCS</span>
   </a>
 
   <nav class="bar__nav" id="bar-nav" aria-label="Jump to section">
@@ -30,6 +30,7 @@
     <a href="#leg-book"><span class="lang-en">Book a Consultation</span><span class="lang-fr">Rendez-vous</span></a>
     <a href="#about"><span class="lang-en">Training Path</span><span class="lang-fr">Parcours</span></a>
     <a href="#expertise"><span class="lang-en">Expertise</span><span class="lang-fr">Expertise</span></a>
+    <a href="#testimony"><span class="lang-en">Testimonial</span><span class="lang-fr">Témoignage</span></a>
     <a href="#contact"><span class="lang-en">Clinics &amp; Contact</span><span class="lang-fr">Cliniques et contact</span></a>
   </nav>
 
@@ -37,90 +38,100 @@
     <button data-lang-btn="en" class="active">EN</button>
     <button data-lang-btn="fr">FR</button>
   </div>
+
+  <button class="bar__menu" type="button" aria-controls="bar-nav" aria-expanded="false">
+    <span class="sr-only lang-en">Menu</span><span class="sr-only lang-fr">Menu</span>
+    <span class="bar__menu-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
 </header>
 
 <main id="top">
 
-  <!-- THE WORLD: one continuous flight, four real photographs, no video,
-       no generation. Poster-only worldflight legs (see BRIEF.md). -->
-  <div data-sc-mode="worldflight" data-sc-seam="0.16" data-sc-lerp="0.12">
+  <!-- THE WORLD: four slides, one fixed stage. Each slide carries its own
+       copy, so the text is already in place the moment a slide lands, and
+       each new slide moves in over the previous one (data-sc-transition). -->
+  <div data-sc-mode="worldflight" data-sc-transition="cover" data-sc-still data-sc-seam="0.7" data-sc-lerp="0.12">
 
     <div data-sc-world>
-      <div class="leg" id="leg-welcome" data-sc-segment data-sc-w="1.2" data-sc-linger="0.3" data-sc-waypoint="Welcome">
-        <img class="sc-world__poster" src="assets/img/hero-portrait.jpg" alt="Dr. Georges Sioufi" decoding="async">
+      <div class="leg" id="leg-welcome" data-sc-segment data-sc-w="1.2" data-sc-waypoint="Welcome">
+        <img class="sc-world__poster" src="assets/img/hero-portrait.jpg" alt="Dr.&nbsp;Georges Sioufi" decoding="async">
+        <div class="sc-copy leg-copy world-copy--hero copy-card">
+          <div class="hero-main">
+            <span class="label lang-en">Orthopaedic Surgeon · Montreal, QC</span>
+            <span class="label lang-fr">Chirurgien orthopédiste · Montréal, QC</span>
+            <h1 class="sc-display">
+              <span class="lang-en">Dr.&nbsp;Georges Sioufi</span>
+              <span class="lang-fr">Dr.&nbsp;Georges Sioufi</span>
+            </h1>
+            <p class="credential-line">
+              <span class="lang-en">MD, FRCS&nbsp;— Knee &amp; Hip Reconstruction</span>
+              <span class="lang-fr">MD, FRCS&nbsp;— Reconstruction du genou et de la hanche</span>
+            </p>
+          </div>
+          <p class="sc-lede lang-en">Over 30 years dedicated to knee and hip reconstruction, combining technical precision with a human-centered approach that treats the whole person, not just the condition.</p>
+          <p class="sc-lede lang-fr">Plus de 30 ans consacrés à la reconstruction du genou et de la hanche, alliant précision technique et une approche humaine centrée sur la personne.</p>
+        </div>
       </div>
-      <div class="leg" id="leg-credentials" data-sc-segment data-sc-w="2.5" data-sc-linger="0.35" data-sc-waypoint="Credentials">
+
+      <div class="leg" id="leg-credentials" data-sc-segment data-sc-w="1.4" data-sc-waypoint="Credentials">
         <img class="sc-world__poster" src="assets/img/headshot-grey.jpg" alt="" decoding="async">
+        <div class="sc-copy leg-copy world-copy--cred copy-card">
+          <span class="label lang-en">Credentials</span>
+          <span class="label lang-fr">Formation</span>
+          <ol class="cred-list">
+            <li>
+              <span class="cred-list__tick">01</span>
+              <span class="lang-en">Université de Montréal&nbsp;— Édouard-Samson orthopedics program</span>
+              <span class="lang-fr">Université de Montréal&nbsp;— Programme d'orthopédie Édouard-Samson</span>
+            </li>
+            <li>
+              <span class="cred-list__tick">02</span>
+              <span class="lang-en">Hôpital Sacré-Cœur&nbsp;— knee &amp; hip reconstruction fellowship</span>
+              <span class="lang-fr">Hôpital Sacré-Cœur&nbsp;— surspécialisation en reconstruction du genou et de la hanche</span>
+            </li>
+            <li>
+              <span class="cred-list__tick">03</span>
+              <span class="lang-en">Paris, under Professor Émile Letournel&nbsp;— pelvic &amp; acetabular trauma</span>
+              <span class="lang-fr">Paris, auprès du professeur Émile Letournel&nbsp;— traumatologie pelvienne et acétabulaire</span>
+            </li>
+            <li class="cred-list__final">
+              <span class="cred-list__tick">04</span>
+              <span class="lang-en">30+ years in Montreal. Fellow, Royal College of Surgeons of Canada.</span>
+              <span class="lang-fr">Plus de 30 ans à Montréal. Fellow, Collège royal des chirurgiens du Canada.</span>
+            </li>
+          </ol>
+        </div>
       </div>
-      <div class="leg" id="leg-philosophy" data-sc-segment data-sc-w="1.3" data-sc-linger="0.3" data-sc-waypoint="Philosophy">
+
+      <div class="leg" id="leg-philosophy" data-sc-segment data-sc-w="1.3" data-sc-waypoint="Philosophy">
         <img class="sc-world__poster" src="assets/img/consultation.jpg" alt="" decoding="async">
+        <div class="sc-copy leg-copy world-copy--quote copy-card">
+          <span class="label lang-en">Philosophy</span>
+          <span class="label lang-fr">Philosophie</span>
+          <blockquote class="lang-en">“A practice of orthopedics that prioritizes the whole person, not just the condition.”</blockquote>
+          <blockquote class="lang-fr">«&nbsp;Une pratique de l'orthopédie qui priorise la personne dans son ensemble, pas seulement la condition.&nbsp;»</blockquote>
+        </div>
       </div>
-      <div class="leg" id="leg-book" data-sc-segment data-sc-w="1.1" data-sc-linger="0.25" data-sc-waypoint="Book">
+
+      <div class="leg" id="leg-book" data-sc-segment data-sc-w="1.2" data-sc-waypoint="Book">
         <img class="sc-world__poster" src="assets/img/about-portrait.jpg" alt="" decoding="async">
-      </div>
-    </div>
-
-    <div data-sc-world-copy>
-      <div class="sc-world__scrim sc-scrim sc-scrim--band" aria-hidden="true"></div>
-
-      <!-- Recognition: on screen the instant the page lands (greet via "hero"). -->
-      <div class="sc-copy sc-copy--lead world-copy--hero copy-card" data-sc-copy data-sc-window="hero">
-        <span class="label lang-en">Orthopaedic Surgeon · Montreal, QC</span>
-        <span class="label lang-fr">Chirurgien orthopédiste · Montréal, QC</span>
-        <h1 class="sc-display sc-display--xl">
-          <span class="lang-en">Dr. Georges Sioufi</span>
-          <span class="lang-fr">Dr Georges Sioufi</span>
-        </h1>
-        <p class="credential-line">
-          <span class="lang-en">MD, FRCS — Knee &amp; Hip Reconstruction</span>
-          <span class="lang-fr">MD, FRCS — Reconstruction du genou et de la hanche</span>
-        </p>
-        <p class="sc-lede lang-en">Over 30 years dedicated to knee and hip reconstruction, combining technical precision with a human-centered approach that treats the whole person, not just the condition.</p>
-        <p class="sc-lede lang-fr">Plus de 30 ans consacrés à la reconstruction du genou et de la hanche, alliant précision technique et une approche humaine centrée sur la personne.</p>
-      </div>
-
-      <!-- Confidence, THE PEAK: four training milestones accumulate, one at a
-           time, and hold together until the leg resolves into Philosophy. -->
-      <div class="cred-shell" aria-hidden="false">
-        <p class="cred-line" data-sc-copy data-sc-window="0.2167 0.59">
-          <span class="cred-line__tick">01</span>
-          <span class="lang-en">Université de Montréal — Édouard-Samson orthopedics program</span>
-          <span class="lang-fr">Université de Montréal — Programme d'orthopédie Édouard-Samson</span>
-        </p>
-        <p class="cred-line" data-sc-copy data-sc-window="0.3115 0.59">
-          <span class="cred-line__tick">02</span>
-          <span class="lang-en">Hôpital Sacré-Cœur — knee &amp; hip reconstruction fellowship</span>
-          <span class="lang-fr">Hôpital Sacré-Cœur — surspécialisation en reconstruction du genou et de la hanche</span>
-        </p>
-        <p class="cred-line" data-sc-copy data-sc-window="0.4098 0.59">
-          <span class="cred-line__tick">03</span>
-          <span class="lang-en">Paris, under Professor Émile Letournel — pelvic &amp; acetabular trauma</span>
-          <span class="lang-fr">Paris, auprès du professeur Émile Letournel — traumatologie pelvienne et acétabulaire</span>
-        </p>
-        <p class="cred-line cred-line--final" data-sc-copy data-sc-window="0.5000 0.59">
-          <span class="cred-line__tick">04</span>
-          <span class="lang-en">30+ years in Montreal. Fellow, Royal College of Surgeons of Canada.</span>
-          <span class="lang-fr">Plus de 30 ans à Montréal. Fellow, Collège royal des chirurgiens du Canada.</span>
-        </p>
-      </div>
-
-      <!-- Warmth: the human turn after the technical high. -->
-      <div class="sc-copy sc-copy--center world-copy--quote copy-card" data-sc-copy data-sc-window="0.6386 0.7771">
-        <blockquote class="lang-en">"A practice of orthopedics that prioritizes the whole person, not just the condition."</blockquote>
-        <blockquote class="lang-fr">« Une pratique de l'orthopédie qui priorise la personne dans son ensemble, pas seulement la condition. »</blockquote>
-      </div>
-
-      <!-- Resolve: the world's own close. The CTA is an object in this place. -->
-      <div class="sc-copy sc-copy--lead world-copy--close copy-card" data-sc-copy data-sc-window="finale">
-        <h2 class="sc-display sc-display--lg">
-          <span class="lang-en">Consultations are booked by phone, directly with the clinic.</span>
-          <span class="lang-fr">Les rendez-vous se prennent par téléphone, directement auprès de la clinique.</span>
-        </h2>
-        <div class="close-cta">
-          <a class="btn btn-primary" href="#contact">
-            <span class="lang-en">See all clinics &amp; directions</span>
-            <span class="lang-fr">Voir toutes les cliniques</span>
-          </a>
+        <div class="sc-copy leg-copy world-copy--close copy-card">
+          <div>
+            <p class="signoff">
+              <span class="lang-en">Looking forward to caring for you.</span>
+              <span class="lang-fr">Au plaisir de vous soigner.</span>
+            </p>
+            <h2 class="sc-display">
+              <span class="lang-en">Consultations are booked by phone, directly with the clinic.</span>
+              <span class="lang-fr">Les rendez-vous se prennent par téléphone, directement auprès de la clinique.</span>
+            </h2>
+          </div>
+          <div class="close-cta">
+            <a class="btn btn-primary" href="#contact">
+              <span class="lang-en">See all clinics &amp; directions</span>
+              <span class="lang-fr">Voir toutes les cliniques</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -137,7 +148,7 @@
       <div class="sc-wrap">
         <div class="path-grid">
           <div class="path-photo" data-sc-in>
-            <img src="assets/img/about-secondary.jpg" width="960" height="1200" alt="Dr. Georges Sioufi at his desk">
+            <img src="assets/img/about-secondary.jpg" width="960" height="1200" alt="Dr.&nbsp;Georges Sioufi at his desk">
             <div class="path-note">
               <img src="assets/img/notes.jpg" width="960" height="768" alt="A consultation note, stamped with a small Eiffel Tower emblem">
             </div>
@@ -151,37 +162,49 @@
                 <span class="lang-en">A surgeon's path, from Montreal to Paris and back</span>
                 <span class="lang-fr">Le parcours d'un chirurgien, de Montréal à Paris</span>
               </h2>
-              <p class="lang-en">A graduate of the Université de Montréal's renowned Édouard-Samson orthopedics program, Dr. Sioufi trained in knee and hip reconstruction at Hôpital Sacré-Cœur and completed a subspecialty in pelvic and acetabular surgery under Professor Émile Letournel in Paris. He is among the few surgeons in Quebec with comprehensive expertise in the Oxford technique for medial partial knee replacement, and practices fluently in both English and French.</p>
-              <p class="lang-fr">Diplômé du programme d'orthopédie Édouard-Samson de l'Université de Montréal, le Dr Sioufi s'est formé en reconstruction du genou et de la hanche à l'Hôpital Sacré-Cœur, puis a complété une sous-spécialité en chirurgie pelvienne et acétabulaire auprès du professeur Émile Letournel à Paris. Il est parmi les rares chirurgiens du Québec à maîtriser pleinement la technique d'Oxford, et exerce couramment en français comme en anglais.</p>
+              <p class="lang-en">A graduate of the Université de Montréal's renowned Édouard-Samson orthopedics program, Dr.&nbsp;Sioufi trained in knee and hip reconstruction at Hôpital Sacré-Cœur and completed a subspecialty in pelvic and acetabular surgery under Professor Émile Letournel in Paris. He is among the few surgeons in Quebec with comprehensive expertise in the Oxford technique for medial partial knee replacement, and practices fluently in both English and French.</p>
+              <p class="lang-fr">Diplômé du programme d'orthopédie Édouard-Samson de l'Université de Montréal, le Dr.&nbsp;Sioufi s'est formé en reconstruction du genou et de la hanche à l'Hôpital Sacré-Cœur, puis a complété une sous-spécialité en chirurgie pelvienne et acétabulaire auprès du professeur Émile Letournel à Paris. Il est parmi les rares chirurgiens du Québec à maîtriser pleinement la technique d'Oxford, et exerce couramment en français comme en anglais.</p>
             </div>
             <ol class="milestones" data-sc-in data-sc-stagger="70">
               <li>
                 <span class="yr lang-en">Medical Degree &amp; Residency</span><span class="yr lang-fr">Doctorat et résidence</span>
-                <h3><span class="lang-en">Université de Montréal — Édouard-Samson Program</span><span class="lang-fr">Université de Montréal — Programme Édouard-Samson</span></h3>
+                <h3><span class="lang-en">Université de Montréal&nbsp;— Édouard-Samson Program</span><span class="lang-fr">Université de Montréal&nbsp;— Programme Édouard-Samson</span></h3>
                 <p class="lang-en">Medical degree and orthopedic surgery residency at one of Quebec's leading orthopedic training programs.</p>
                 <p class="lang-fr">Doctorat en médecine et résidence en chirurgie orthopédique dans l'un des programmes les plus reconnus du Québec.</p>
               </li>
               <li>
                 <span class="yr lang-en">Fellowship</span><span class="yr lang-fr">Surspécialisation</span>
-                <h3><span class="lang-en">Hôpital Sacré-Cœur — Knee &amp; Hip Reconstruction</span><span class="lang-fr">Hôpital Sacré-Cœur — Reconstruction du genou et de la hanche</span></h3>
+                <h3><span class="lang-en">Hôpital Sacré-Cœur&nbsp;— Knee &amp; Hip Reconstruction</span><span class="lang-fr">Hôpital Sacré-Cœur&nbsp;— Reconstruction du genou et de la hanche</span></h3>
                 <p class="lang-en">Specialized training in reconstructive surgery of the knee and hip.</p>
                 <p class="lang-fr">Formation spécialisée en chirurgie reconstructive du genou et de la hanche.</p>
               </li>
               <li>
                 <span class="yr lang-en">Subspecialty Training</span><span class="yr lang-fr">Sous-spécialité</span>
-                <h3><span class="lang-en">Paris, France — Pelvic &amp; Acetabular Surgery</span><span class="lang-fr">Paris, France — Chirurgie pelvienne et acétabulaire</span></h3>
+                <h3><span class="lang-en">Paris, France&nbsp;— Pelvic &amp; Acetabular Surgery</span><span class="lang-fr">Paris, France&nbsp;— Chirurgie pelvienne et acétabulaire</span></h3>
                 <p class="lang-en">Trained under Professor Émile Letournel, a founding figure in the surgical treatment of pelvic and acetabular fractures.</p>
                 <p class="lang-fr">Formé auprès du professeur Émile Letournel, figure fondatrice du traitement chirurgical des fractures pelviennes et acétabulaires.</p>
               </li>
               <li>
                 <span class="yr lang-en">Ongoing Practice</span><span class="yr lang-fr">Pratique actuelle</span>
-                <h3><span class="lang-en">30+ Years in Montreal — Clinical Instructor, Santa Cabrini Hospital</span><span class="lang-fr">Plus de 30 ans à Montréal — Chargé d'enseignement clinique, Hôpital Santa Cabrini</span></h3>
+                <h3><span class="lang-en">30+ Years in Montreal&nbsp;— Clinical Instructor, Santa Cabrini Hospital</span><span class="lang-fr">Plus de 30 ans à Montréal&nbsp;— Chargé d'enseignement clinique, Hôpital Santa Cabrini</span></h3>
                 <p class="lang-en">Fellow of the Royal College of Surgeons of Canada (FRCS).</p>
                 <p class="lang-fr">Fellow du Collège royal des chirurgiens du Canada (FRCS).</p>
               </li>
             </ol>
           </div>
         </div>
+
+        <!-- Publication: the paper's own title stays in English in both
+             languages, as published. -->
+        <a class="pub-card" data-sc-in href="https://sciencevolks.com/orthopaedics/pdf/SVOA-OR-06-025.pdf" target="_blank" rel="noopener">
+          <span class="pub-card__meta">
+            <span class="sc-label"><span class="lang-en">Publication</span><span class="lang-fr">Publication</span></span>
+            <span class="pub-card__journal">SVOA Orthopaedics · <span class="lang-en">Technical paper</span><span class="lang-fr">Article technique</span> · Vol. 6, No. 5 · 2026</span>
+          </span>
+          <span class="pub-card__title" lang="en">Vertical Midtrans-Patellar Arthrotomy Approach for Total Knee Arthroplasty: A Biologically Coherent Full Extensor-Preserving Exposure Strategy</span>
+          <span class="pub-card__authors">G. Sioufi, J.-É. Beauchamp, J. Najjar, M. Zoghby, A. Sioufi, A. Najjar</span>
+          <span class="pub-card__cta"><span class="lang-en">Read the paper (PDF)</span><span class="lang-fr">Lire l'article (PDF)</span> →</span>
+        </a>
       </div>
     </section>
 
@@ -193,48 +216,42 @@
           <h2 class="sc-display sc-display--lg">
             <span class="lang-en">Areas of expertise</span><span class="lang-fr">Domaines d'expertise</span>
           </h2>
-          <p class="lang-en">From joint-preserving knee surgery to complex pelvic trauma reconstruction, Dr. Sioufi's practice spans the full range of adult hip and knee orthopaedics.</p>
-          <p class="lang-fr">De la chirurgie du genou préservant l'articulation à la reconstruction des traumatismes pelviens, la pratique du Dr Sioufi couvre l'ensemble de l'orthopédie adulte de la hanche et du genou.</p>
+          <p class="lang-en">From joint-preserving knee surgery to complex pelvic trauma reconstruction, Dr.&nbsp;Sioufi's practice spans the full range of adult hip and knee orthopaedics.</p>
+          <p class="lang-fr">De la chirurgie du genou préservant l'articulation à la reconstruction des traumatismes pelviens, la pratique du Dr.&nbsp;Sioufi couvre l'ensemble de l'orthopédie adulte de la hanche et du genou.</p>
         </div>
 
         <div class="expertise-grid" data-sc-in data-sc-stagger="60">
           <article class="x-card">
-            <div class="x-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 32V8" /><path d="M8 32L18.15 10.26" /><path d="M8 26a10 10 0 0 1 8-6" /><circle cx="8" cy="32" r="1.6" fill="currentColor" stroke="none"/></svg></div>
             <span class="tag lang-en">Knee</span><span class="tag lang-fr">Genou</span>
             <h3><span class="lang-en">Medial Partial Knee Replacement (Oxford Technique)</span><span class="lang-fr">Prothèse unicompartimentale du genou (technique d'Oxford)</span></h3>
             <p class="lang-en">A precise, less invasive approach for arthritis limited to the medial compartment, preserving healthy bone and ligaments.</p>
             <p class="lang-fr">Une approche précise et moins invasive pour l'arthrose limitée au compartiment médial, préservant l'os et les ligaments sains.</p>
           </article>
           <article class="x-card">
-            <div class="x-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 32V8" /><path d="M8 32L24.97 15.03" /><path d="M8 24a12 12 0 0 1 11-8" /><circle cx="8" cy="32" r="1.6" fill="currentColor" stroke="none"/></svg></div>
             <span class="tag lang-en">Hip &amp; Knee</span><span class="tag lang-fr">Hanche et genou</span>
             <h3><span class="lang-en">Total Hip &amp; Knee Reconstruction</span><span class="lang-fr">Reconstruction totale de la hanche et du genou</span></h3>
             <p class="lang-en">Primary total hip and knee replacement for advanced arthritis, tailored to each patient's anatomy and activity level.</p>
             <p class="lang-fr">Prothèse totale de la hanche et du genou pour l'arthrose avancée, adaptée à l'anatomie et au niveau d'activité de chaque patient.</p>
           </article>
           <article class="x-card">
-            <div class="x-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 32V8" /><path d="M8 32L29.74 21.85" /><path d="M8 22a14 14 0 0 1 13-8" /><path d="M27 6l3 3-3 3M13 34l-3-3 3-3" /></svg></div>
             <span class="tag lang-en">Revision</span><span class="tag lang-fr">Révision</span>
             <h3><span class="lang-en">Complex Revision Surgery</span><span class="lang-fr">Chirurgie de révision complexe</span></h3>
             <p class="lang-en">Revision of failed or worn hip and knee implants, including cases with significant bone loss or prior complications.</p>
             <p class="lang-fr">Révision des prothèses usées ou défaillantes, y compris les cas comportant une perte osseuse importante.</p>
           </article>
           <article class="x-card">
-            <div class="x-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 32V8" /><path d="M8 32L32 32" /><path d="M8 22a16 16 0 0 1 16-14" /><path d="M18 4l-3 6 5 1-4 7" /></svg></div>
             <span class="tag lang-en">Trauma</span><span class="tag lang-fr">Traumatologie</span>
             <h3><span class="lang-en">Pelvic &amp; Acetabular Trauma Surgery</span><span class="lang-fr">Chirurgie des traumatismes pelviens et acétabulaires</span></h3>
-            <p class="lang-en">Surgical treatment of complex pelvic and acetabular fractures — trained directly under Professor Émile Letournel in Paris.</p>
+            <p class="lang-en">Surgical treatment of complex pelvic and acetabular fractures&nbsp;— trained directly under Professor Émile Letournel in Paris.</p>
             <p class="lang-fr">Traitement chirurgical des fractures pelviennes et acétabulaires complexes, acquis auprès du professeur Émile Letournel.</p>
           </article>
           <article class="x-card">
-            <div class="x-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 32V8" /><path d="M8 32L21.77 12.35" /><path d="M8 25a11 11 0 0 1 9-7" /><circle cx="26" cy="12" r="4"/><path d="M22 12h-6" /></svg></div>
             <span class="tag lang-en">Arthroscopy</span><span class="tag lang-fr">Arthroscopie</span>
             <h3><span class="lang-en">Arthroscopic Knee &amp; Hip Surgery</span><span class="lang-fr">Chirurgie arthroscopique du genou et de la hanche</span></h3>
             <p class="lang-en">Minimally invasive arthroscopic procedures to diagnose and treat ligament, cartilage, and meniscal injuries.</p>
             <p class="lang-fr">Interventions arthroscopiques peu invasives pour diagnostiquer et traiter les blessures ligamentaires et cartilagineuses.</p>
           </article>
           <article class="x-card">
-            <div class="x-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 32V8" /><path d="M8 32L27.65 18.23" /><path d="M8 23a13 13 0 0 1 11-7" /><path d="M4 36l8-8M32 8l-8 8" /></svg></div>
             <span class="tag lang-en">Sports Medicine</span><span class="tag lang-fr">Médecine sportive</span>
             <h3><span class="lang-en">Sports Medicine &amp; Joint Preservation</span><span class="lang-fr">Médecine sportive et préservation articulaire</span></h3>
             <p class="lang-en">Treatment focused on returning active patients to sport and daily activity while preserving joint function long-term.</p>
@@ -243,9 +260,132 @@
         </div>
 
         <div class="practice-strip" data-sc-in data-sc-stagger="70">
-          <figure><img src="assets/img/knee-exam.jpg" width="960" height="1200" alt="Dr. Georges Sioufi examining a patient's knee"></figure>
-          <figure><img src="assets/img/headshot-coat.jpg" width="960" height="1200" alt="Dr. Georges Sioufi, orthopaedic surgeon"></figure>
+          <figure><img src="assets/img/knee-exam.jpg" width="960" height="1200" alt="Dr.&nbsp;Georges Sioufi examining a patient's knee"></figure>
+          <figure><img src="assets/img/headshot-coat.jpg" width="960" height="1200" alt="Dr.&nbsp;Georges Sioufi, orthopaedic surgeon"></figure>
         </div>
+      </div>
+    </section>
+
+    <!-- Proof: one patient's twenty-year story. The letter is shown as a pull
+         quote, three numbers and three short excerpts; the full text stays one
+         click away, typeset as a letter rather than a block of paragraphs. -->
+    <section class="sc-section testimony" id="testimony" data-sc-act="flow">
+      <div class="sc-wrap">
+        <div class="testimony__head" data-sc-in>
+          <span class="sc-label"><span class="lang-en">Patient testimonial</span><span class="lang-fr">Témoignage de patient</span></span>
+          <blockquote class="testimony__quote">
+            <p class="lang-en">“He wasn’t looking for the quickest solution, but the best solution for my future.”</p>
+            <p class="lang-fr">«&nbsp;Il ne cherchait pas la solution la plus rapide, mais la meilleure solution pour mon avenir.&nbsp;»</p>
+          </blockquote>
+          <p class="testimony__by">
+            <span class="testimony__name">Jean Fontaine</span>
+            <span class="lang-en">Patient of Dr.&nbsp;Sioufi for more than 20 years</span>
+            <span class="lang-fr">Patient du Dr.&nbsp;Sioufi depuis plus de 20 ans</span>
+          </p>
+        </div>
+
+        <dl class="testimony__facts" data-sc-in data-sc-stagger="80">
+          <div>
+            <dt>20+</dt>
+            <dd><span class="lang-en">years of follow-up, beginning at Santa Cabrini Hospital</span><span class="lang-fr">ans de suivi, depuis l'Hôpital Santa Cabrini</span></dd>
+          </div>
+          <div>
+            <dt>2</dt>
+            <dd><span class="lang-en">partial knee replacements, one in each knee</span><span class="lang-fr">prothèses unicompartimentales, une à chaque genou</span></dd>
+          </div>
+          <div>
+            <dt>60</dt>
+            <dd><span class="lang-en">years old today, and still active</span><span class="lang-fr">ans aujourd'hui, et toujours actif</span></dd>
+          </div>
+        </dl>
+
+        <div class="testimony__excerpts" data-sc-in data-sc-stagger="80">
+          <figure>
+            <span class="testimony__num">01</span>
+            <figcaption><span class="lang-en">Seen as a person</span><span class="lang-fr">Une personne, pas un dossier</span></figcaption>
+            <blockquote>
+              <p class="lang-en">“Dr.&nbsp;Sioufi took the time to explain, to listen and, above all, to see the person behind the patient.”</p>
+              <p class="lang-fr">«&nbsp;Le Dr.&nbsp;Sioufi prenait le temps d'expliquer, d'écouter et surtout de voir la personne derrière le patient.&nbsp;»</p>
+            </blockquote>
+          </figure>
+          <figure>
+            <span class="testimony__num">02</span>
+            <figcaption><span class="lang-en">Always improving</span><span class="lang-fr">Toujours innover</span></figcaption>
+            <blockquote>
+              <p class="lang-en">“Whether to reduce pain before, during or after a procedure, he has never stopped innovating and refining his practice.”</p>
+              <p class="lang-fr">«&nbsp;Que ce soit pour réduire la douleur avant, pendant ou après une intervention, il n'a jamais cessé d'innover et de perfectionner sa pratique.&nbsp;»</p>
+            </blockquote>
+          </figure>
+          <figure>
+            <span class="testimony__num">03</span>
+            <figcaption><span class="lang-en">Quality of life</span><span class="lang-fr">La qualité de vie</span></figcaption>
+            <blockquote>
+              <p class="lang-en">“He helped me preserve my independence, my mobility and much of the quality of life I still enjoy today.”</p>
+              <p class="lang-fr">«&nbsp;Il m'a aidé à préserver mon autonomie, ma mobilité et une grande partie de la qualité de vie dont je bénéficie encore aujourd'hui.&nbsp;»</p>
+            </blockquote>
+          </figure>
+        </div>
+
+        <details class="letter" data-sc-in>
+          <summary>
+            <span class="lang-en">Read the full letter</span><span class="lang-fr">Lire la lettre complète</span>
+            <span class="letter__chev" aria-hidden="true"></span>
+          </summary>
+
+          <article class="letter__paper">
+            <header class="letter__head">
+              <h3><span class="lang-en">My experience with Dr.&nbsp;Georges Sioufi</span><span class="lang-fr">Mon expérience avec le Dr.&nbsp;Georges Sioufi</span></h3>
+              <p class="letter__note lang-en">Translated from the original French.</p>
+            </header>
+
+            <!-- EN: faithful translation of the letter supplied by the patient -->
+            <div class="letter__body lang-en">
+              <h4>The search for answers</h4>
+              <p>I had a very active, sporty youth. Like many young people, I thought I was invincible. Injuries were part of the game and, despite the pain, I always kept going. Over time, though, I came to understand that our body eventually reminds us of the excesses of the past.</p>
+              <p>When the problems with my knees became more serious, I consulted several orthopaedic surgeons at different institutions. Unfortunately, each consultation seemed to bring a different diagnosis, which only added to my worries. That is when I met Dr.&nbsp;Georges Sioufi at Santa Cabrini Hospital. Without knowing it, that meeting would mark the beginning of an exceptional medical journey that has now lasted more than twenty years.</p>
+
+              <h4>A different approach</h4>
+              <p>From our very first meetings, I felt something different. Dr.&nbsp;Sioufi took the time to explain, to listen and, above all, to see the person behind the patient. At a time when I was still relatively young, several options could have been considered, but for him it was clear that the main goal had to be preserving my knees for as long as possible. He wasn’t looking for the quickest solution, but the best solution for my future.</p>
+              <p>In the years that followed, I underwent several conservative surgeries on both knees, as well as partial reconstructions related to my sports injuries and the natural wear of my joints. Every step of this journey was approached with the same rigour, the same careful thought and the same concern for preserving my quality of life.</p>
+
+              <h4>The long view</h4>
+              <p>Thanks to his long-term vision and his expertise, I notably received partial (unicompartmental) knee replacements in both knees. Today, at 60, I fully appreciate the importance of those decisions. They have allowed me to keep good knees, to stay active and to keep enjoying the activities I care about.</p>
+              <p>Yet what sets Dr.&nbsp;Sioufi apart most, in my eyes, goes beyond his surgical skills. Over the years, I have seen a passionate physician, constantly looking for new ways to improve his techniques and his patients’ comfort. Whether to reduce pain before, during or after a procedure, he has never stopped innovating and refining his practice.</p>
+
+              <h4>More than a surgeon</h4>
+              <p>Most importantly, I have always felt respected and supported. From my first operation to the most recent, I never felt like just another file number. I was treated with humanity, compassion and professionalism. At every stage, the follow-up was exemplary, and that allowed me to approach each procedure with confidence and peace of mind.</p>
+              <p>Looking back on the road travelled, I realize that Dr.&nbsp;Sioufi didn’t only take care of my knees. He helped me preserve my independence, my mobility and much of the quality of life I still enjoy today. For that, I will always be grateful.</p>
+              <p>After more than twenty years of follow-up, I can say that my trust in Dr.&nbsp;Georges Sioufi has never been shaken. Over time, this doctor–patient relationship has grown into a deep mutual respect and a friendship I consider a privilege.</p>
+              <p class="letter__thanks">Thank you, Dr.&nbsp;Sioufi, for your dedication, your attentiveness and the exceptional care you have given me over all these years.</p>
+            </div>
+
+            <div class="letter__body lang-fr">
+              <h4>La quête de réponses</h4>
+              <p>J’ai eu une jeunesse très active sur le plan sportif. Comme bien des jeunes, je me croyais invincible. Les blessures faisaient partie du jeu et, malgré la douleur, je continuais toujours à avancer. Avec le temps, cependant, j’ai compris que notre corps finit par nous rappeler les excès du passé.</p>
+              <p>Lorsque les problèmes à mes genoux sont devenus plus importants, j’ai consulté plusieurs orthopédistes dans différents établissements. Malheureusement, chaque consultation semblait apporter un diagnostic différent, ce qui ne faisait qu’augmenter mes inquiétudes. C’est à ce moment que j’ai rencontré le Dr.&nbsp;Georges Sioufi à l’Hôpital Santa Cabrini. Sans le savoir, cette rencontre allait marquer le début d’un parcours médical exceptionnel qui dure depuis plus de vingt ans.</p>
+
+              <h4>Une approche différente</h4>
+              <p>Dès nos premières rencontres, j’ai ressenti quelque chose de différent. Le Dr.&nbsp;Sioufi prenait le temps d’expliquer, d’écouter et surtout de voir la personne derrière le patient. À une époque où j’étais encore relativement jeune, plusieurs options pouvaient être envisagées, mais pour lui, il était clair que l’objectif principal devait être de préserver mes genoux le plus longtemps possible. Il ne cherchait pas la solution la plus rapide, mais la meilleure solution pour mon avenir.</p>
+              <p>Au cours des années qui ont suivi, j’ai subi plusieurs interventions chirurgicales conservatrices aux deux genoux, ainsi que des reconstructions partielles liées à mes blessures sportives et à l’usure naturelle de mes articulations. Chaque étape de ce parcours a été abordée avec la même rigueur, la même réflexion et le même souci de préserver ma qualité de vie.</p>
+
+              <h4>Une vision à long terme</h4>
+              <p>Grâce à sa vision à long terme et à son expertise, j’ai notamment bénéficié de prothèses unicompartimentales aux deux genoux. Aujourd’hui, à 60 ans, je mesure pleinement l’importance de ces décisions. Elles m’ont permis de conserver de bons genoux, de demeurer actif et de continuer à profiter des activités qui me sont chères.</p>
+              <p>Toutefois, ce qui distingue le plus le Dr.&nbsp;Sioufi à mes yeux ne se limite pas à ses compétences chirurgicales. Au fil des années, j’ai vu un médecin passionné, continuellement à la recherche de nouvelles façons d’améliorer ses techniques et le confort de ses patients. Que ce soit pour réduire la douleur avant, pendant ou après une intervention, il n’a jamais cessé d’innover et de perfectionner sa pratique.</p>
+
+              <h4>Plus qu’un chirurgien</h4>
+              <p>Plus important encore, je me suis toujours senti respecté et accompagné. De ma première opération à la plus récente, je n’ai jamais eu l’impression d’être un simple numéro de dossier. J’ai été traité avec humanité, compassion et professionnalisme. À chaque étape, le suivi a été exemplaire, et cela m’a permis d’aborder les interventions avec confiance et sérénité.</p>
+              <p>En regardant le chemin parcouru, je réalise que le Dr.&nbsp;Sioufi n’a pas seulement pris soin de mes genoux. Il m’a aidé à préserver mon autonomie, ma mobilité et une grande partie de la qualité de vie dont je bénéficie encore aujourd’hui. Pour cela, je lui en serai toujours reconnaissant.</p>
+              <p>Après plus de vingt ans de suivi, je peux affirmer que ma confiance envers le Dr.&nbsp;Georges Sioufi n’a jamais été ébranlée. Avec le temps, cette relation médecin-patient s’est transformée en une profonde estime mutuelle et en une amitié que je considère comme un privilège.</p>
+              <p class="letter__thanks">Merci, Dr.&nbsp;Sioufi, pour votre dévouement, votre écoute et les soins exceptionnels que vous m’avez prodigués au fil de toutes ces années.</p>
+            </div>
+
+            <footer class="letter__sign">
+              <span class="letter__signature">Jean Fontaine</span>
+              <span class="lang-en">Grateful patient of Dr.&nbsp;Georges Sioufi</span>
+              <span class="lang-fr">Patient reconnaissant du Dr.&nbsp;Georges Sioufi</span>
+            </footer>
+          </article>
+        </details>
       </div>
     </section>
 
@@ -257,8 +397,8 @@
           <h2 class="sc-display sc-display--lg">
             <span class="lang-en">Three clinics in the Greater Montreal area.</span><span class="lang-fr">Trois cliniques dans la grande région de Montréal.</span>
           </h2>
-          <p class="lang-en">Consultations are booked by phone, directly with the clinic — call the location most convenient for you.</p>
-          <p class="lang-fr">Les rendez-vous se prennent par téléphone, directement auprès de la clinique — appelez l'emplacement le plus près de chez vous.</p>
+          <p class="lang-en">Consultations are booked by phone, directly with the clinic&nbsp;— call the location most convenient for you.</p>
+          <p class="lang-fr">Les rendez-vous se prennent par téléphone, directement auprès de la clinique&nbsp;— appelez l'emplacement le plus près de chez vous.</p>
         </div>
 
         <div class="clinic-grid" data-sc-in data-sc-stagger="60">
@@ -269,8 +409,11 @@
             <span class="city">Saint-Laurent, Montréal, QC</span>
             <p class="addr">6363, autoroute Transcanadienne, bureau 137<br>Saint-Laurent (QC) H4T 1Z9</p>
             <div class="clinic-map">
-              <iframe src="https://maps.google.com/maps?q=6363+autoroute+Transcanadienne+bureau+137+Saint-Laurent+QC+H4T+1Z9&output=embed" title="Map: Physimed, Saint-Laurent" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <!-- Queried by the clinic's name, not the bare street address: the
+                   address alone geocodes onto Highway 40 with no pin. -->
+              <iframe src="https://maps.google.com/maps?q=Physimed,+6363+Route+Transcanadienne,+Saint-Laurent,+QC+H4T+1Z9&output=embed" title="Map: Physimed, Saint-Laurent" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+            <p class="hours"><span class="lang-en">Mon–Fri, 8&nbsp;am&nbsp;–&nbsp;5&nbsp;pm</span><span class="lang-fr">Lun.–ven., 8&nbsp;h&nbsp;–&nbsp;17&nbsp;h</span></p>
             <span class="phone"><a href="tel:+15147478185">514-747-8185</a></span>
             <a class="directions" href="https://www.google.com/maps/search/?api=1&query=6363+autoroute+Transcanadienne+bureau+137+Saint-Laurent+QC+H4T+1Z9" target="_blank" rel="noopener">
               <span class="lang-en">Get directions →</span><span class="lang-fr">Itinéraire →</span>
@@ -285,7 +428,7 @@
             <div class="clinic-map">
               <iframe src="https://maps.google.com/maps?q=3232+rue+Belanger+bureau+402+Montreal+QC+H1B+1B7&output=embed" title="Map: DouleurMD, Montréal" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <p class="hours"><span class="lang-en">Mon–Fri, 8 am – 5 pm</span><span class="lang-fr">Lun.–ven., 8 h – 17 h</span></p>
+            <p class="hours"><span class="lang-en">Mon–Fri, 8&nbsp;am&nbsp;–&nbsp;5&nbsp;pm</span><span class="lang-fr">Lun.–ven., 8&nbsp;h&nbsp;–&nbsp;17&nbsp;h</span></p>
             <span class="phone"><a href="tel:+15143685387">514-368-5387</a></span>
             <a class="directions" href="https://www.google.com/maps/search/?api=1&query=3232+rue+Belanger+bureau+402+Montreal+QC+H1B+1B7" target="_blank" rel="noopener">
               <span class="lang-en">Get directions →</span><span class="lang-fr">Itinéraire →</span>
@@ -300,6 +443,7 @@
             <div class="clinic-map">
               <iframe src="https://maps.google.com/maps?q=30+boulevard+Bouthillier+bureau+120+Rosemere+QC+J7A+4B4&output=embed" title="Map: Clinique Humani, Rosemère" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+            <p class="hours"><span class="lang-en">Mon–Fri, 8&nbsp;am&nbsp;–&nbsp;5&nbsp;pm</span><span class="lang-fr">Lun.–ven., 8&nbsp;h&nbsp;–&nbsp;17&nbsp;h</span></p>
             <span class="phone"><a href="tel:+14509702718">450-970-2718</a></span>
             <a class="directions" href="https://www.google.com/maps/search/?api=1&query=30+boulevard+Bouthillier+bureau+120+Rosemere+QC+J7A+4B4" target="_blank" rel="noopener">
               <span class="lang-en">Get directions →</span><span class="lang-fr">Itinéraire →</span>
@@ -318,11 +462,11 @@
       <div class="sc-wrap">
         <div class="foot-grid">
           <div>
-            <img src="assets/img/logo-full.png" alt="Dr. Georges Sioufi logo" style="height:48px;width:auto;margin-bottom:14px;filter:brightness(0) invert(1);opacity:0.92;">
-            <p class="foot-brand">Dr. Georges Sioufi, MD, FRCS</p>
+            <img class="foot-logo" src="assets/img/logo-full.png" alt="Dr.&nbsp;Georges Sioufi logo">
+            <p class="foot-brand">Dr.&nbsp;Georges Sioufi, MD, FRCS</p>
             <p class="foot-tag">
-              <span class="lang-en">Orthopaedic Surgeon — Knee &amp; Hip Reconstruction, Montreal</span>
-              <span class="lang-fr">Chirurgien orthopédiste — Reconstruction du genou et de la hanche, Montréal</span>
+              <span class="lang-en">Orthopaedic Surgeon&nbsp;— Knee &amp; Hip Reconstruction, Montreal</span>
+              <span class="lang-fr">Chirurgien orthopédiste&nbsp;— Reconstruction du genou et de la hanche, Montréal</span>
             </p>
           </div>
           <div>
@@ -331,6 +475,8 @@
               <li><a href="#leg-welcome"><span class="lang-en">Home</span><span class="lang-fr">Accueil</span></a></li>
               <li><a href="#about"><span class="lang-en">Training Path</span><span class="lang-fr">Parcours</span></a></li>
               <li><a href="#expertise"><span class="lang-en">Expertise</span><span class="lang-fr">Expertise</span></a></li>
+              <li><a href="#testimony"><span class="lang-en">Testimonial</span><span class="lang-fr">Témoignage</span></a></li>
+              <li><a href="https://sciencevolks.com/orthopaedics/pdf/SVOA-OR-06-025.pdf" target="_blank" rel="noopener"><span class="lang-en">Publication (PDF)</span><span class="lang-fr">Publication (PDF)</span></a></li>
               <li><a href="#contact"><span class="lang-en">Contact &amp; Location</span><span class="lang-fr">Contact et localisation</span></a></li>
               <li><a href="https://www.linkedin.com/in/dr-georges-sioufi-md-frcs-99b70a358/" target="_blank" rel="noopener">LinkedIn</a></li>
             </ul>
@@ -338,16 +484,16 @@
           <div>
             <h4><span class="lang-en">Call to book</span><span class="lang-fr">Appelez pour réserver</span></h4>
             <ul>
-              <li><a href="tel:+15147478185">Physimed — 514-747-8185</a></li>
-              <li><a href="tel:+15143685387">DouleurMD — 514-368-5387</a></li>
-              <li><a href="tel:+14509702718">Humani — 450-970-2718</a></li>
+              <li><a href="tel:+15147478185">Physimed&nbsp;— 514-747-8185</a></li>
+              <li><a href="tel:+15143685387">DouleurMD&nbsp;— 514-368-5387</a></li>
+              <li><a href="tel:+14509702718">Humani&nbsp;— 450-970-2718</a></li>
               <li><a href="tel:+14383737438">438-373-7438</a></li>
             </ul>
           </div>
         </div>
         <p class="foot-note">
-          <span class="lang-en">© 2026 Dr. Georges Sioufi.</span>
-          <span class="lang-fr">© 2026 Dr Georges Sioufi.</span>
+          <span class="lang-en">© 2026 Dr.&nbsp;Georges Sioufi.</span>
+          <span class="lang-fr">© 2026 Dr.&nbsp;Georges Sioufi.</span>
         </p>
       </div>
     </footer>
@@ -355,7 +501,7 @@
   </div>
 </main>
 
-<script src="assets/js/scrollcraft.js?v=4"></script>
-<script src="assets/js/main.js?v=4"></script>
+<script src="assets/js/scrollcraft.js?v=7"></script>
+<script src="assets/js/main.js?v=7"></script>
 </body>
 </html>

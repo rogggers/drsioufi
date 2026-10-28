@@ -97,6 +97,12 @@
      data-sc-w        viewport-heights this segment owns. Default 1.3.
      data-sc-linger   dwell remap for this leg only (see lingerEase). Max 0.6.
      data-sc-seam     crossfade band, in viewport-heights of scroll. Default 0.12.
+     data-sc-transition="cover"  on the worldflight: each leg slides up over
+                      the previous one across the seam instead of dissolving.
+                      The covered leg holds still, eases back and dims
+                      (--sc-under, 0..1, is published on it for the page's CSS).
+     data-sc-still    on the worldflight: no camera move at all. Posters hold
+                      their framing and a covered leg does not ease back.
      data-sc-waypoint label published on --sc-seg / the sc:waypoint event, so a
                       page can draw its own route rail. The engine draws none.
      data-sc-window   on a copy block: "hero" | "finale" | "from to [in [out]]"
@@ -421,12 +427,18 @@
         stage: el.querySelector('[data-sc-world]') || el.querySelector('.sc-world'),
         copyLayer: el.querySelector('[data-sc-world-copy]') || el.querySelector('.sc-world__copy'),
         spacer: el.querySelector('[data-sc-spacer]') || el.querySelector('.sc-world__spacer'),
-        seam: 0, segs: [], copies: [], total: 0, top: 0, index: -1, checked: false
+        seam: 0, segs: [], copies: [], total: 0, top: 0, index: -1, checked: false,
+        // "cover": the incoming leg slides up over the outgoing one, which holds
+        // still underneath, instead of the two crossfading in place.
+        cover: el.getAttribute('data-sc-transition') === 'cover',
+        // data-sc-still: the posters hold their framing; no push-in.
+        still: el.hasAttribute('data-sc-still')
       };
       var seam = parseFloat(el.getAttribute('data-sc-seam'));
       // A seam wider than the shortest leg would have three clips dissolving at
-      // once and no leg ever fully present. Cap it well under that.
-      W.seam = isNaN(seam) || seam <= 0 ? 0.12 : clamp(seam, 0.02, 0.4);
+      // once and no leg ever fully present. Cap it well under that. A cover
+      // slide needs more travel than a dissolve to read as motion, not a jump.
+      W.seam = isNaN(seam) || seam <= 0 ? 0.12 : clamp(seam, 0.02, W.cover ? 0.8 : 0.4);
       if (W.stage) W.stage.classList.add('sc-world');
       if (W.copyLayer) W.copyLayer.classList.add('sc-world__copy');
       if (W.spacer) W.spacer.classList.add('sc-world__spacer');
@@ -742,11 +754,26 @@
         // both halves of a crossfade is what puts the page ground through the
         // middle of the seam and reads as a flash.
         var op;
-        if (i > k) op = 0;
+        if (W.cover) {
+          // Arrival of the current leg, 0..1 over its seam. Only the current
+          // leg and the one it is covering are ever on screen.
+          var arrive = k === 0 ? 1 : smooth((t - (W.segs[k].c0 - S / 2)) / S);
+          var slide = '', under = 0;
+          if (i === k) {
+            op = reduce ? arrive : 1;
+            if (!reduce && arrive < 1) slide = 'translate3d(0,' + ((1 - arrive) * 100).toFixed(3) + '%,0)';
+          } else if (i === k - 1 && arrive < 1) {
+            op = 1; under = arrive;
+            if (!reduce && !W.still && under > 0) slide = 'scale(' + (1 - 0.05 * under).toFixed(4) + ')';
+          } else op = 0;
+          if (slide !== s.slide) { s.el.style.transform = slide; s.slide = slide; }
+          if (under !== s.under) { s.el.style.setProperty('--sc-under', under.toFixed(3)); s.under = under; }
+        }
+        else if (i > k) op = 0;
         else if (i === k) op = i === 0 ? 1 : smooth((t - (s.c0 - S / 2)) / S);
         else op = t < s.c1 + S / 2 ? 1 : 0;
 
-        var z = i === k ? 120 : Math.round(100 + op * 10);
+        var z = W.cover ? 100 + i : i === k ? 120 : Math.round(100 + op * 10);
         if (op !== s.op) {
           s.el.style.opacity = op.toFixed(3);
           // A leg at zero must stop compositing entirely. Six full-bleed video
@@ -763,7 +790,7 @@
         // Until a real frame has painted, the poster carries the move. A still
         // that sits perfectly still while the page scrolls announces itself as a
         // placeholder; a slow push in reads as the camera already flying.
-        if (s.poster && !reduce && !(s.clip && s.clip.painted) && op > 0.002) {
+        if (s.poster && !reduce && !W.still && !(s.clip && s.clip.painted) && op > 0.002) {
           s.poster.style.transform = 'scale(' + (1.03 + local * 0.14).toFixed(4) + ')';
         }
       }
