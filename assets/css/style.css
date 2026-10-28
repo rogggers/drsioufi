@@ -433,7 +433,7 @@ html::-webkit-scrollbar-thumb:hover { background: color-mix(in oklab, var(--sc-a
 .paper .testimony .sc-label { color: var(--sc-accent); }
 .testimony ::selection { background: var(--sc-accent); color: var(--sc-accent-ink); }
 
-.testimony__head { max-width: 56rem; margin-bottom: var(--sc-8); }
+.testimony__head { max-width: 56rem; margin-bottom: var(--sc-6); }
 .testimony__head .sc-label { display: block; margin-bottom: var(--sc-5); }
 .testimony__quote { margin: 0 0 var(--sc-5); }
 .paper .testimony__quote p {
@@ -459,7 +459,7 @@ html::-webkit-scrollbar-thumb:hover { background: color-mix(in oklab, var(--sc-a
 }
 .testimony__facts dd { margin: 0; font-size: var(--sc-t-sm); max-width: 26ch; }
 
-.testimony__excerpts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sc-4); margin-bottom: var(--sc-7); }
+.testimony__excerpts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sc-4); }
 .testimony__excerpts figure {
   margin: 0; padding: var(--sc-6) var(--sc-5);
   background: var(--sc-surface); border-radius: var(--sc-r-lg);
@@ -477,8 +477,11 @@ html::-webkit-scrollbar-thumb:hover { background: color-mix(in oklab, var(--sc-a
   font-family: var(--sc-font-display); font-size: var(--sc-t-lg); line-height: 1.38; text-wrap: pretty;
 }
 
-/* the full letter */
-.letter summary {
+/* the full letter: its button sits right under the pull quote, near the
+   top of the section, never at the bottom edge where the next section (or
+   a phone's toolbar) covers it first. */
+.letter { margin-bottom: var(--sc-8); }
+.letter summary, .letter__close {
   display: inline-flex; align-items: center; gap: var(--sc-3);
   list-style: none; cursor: pointer; user-select: none;
   padding: 13px 22px; border-radius: var(--sc-r-md);
@@ -489,6 +492,15 @@ html::-webkit-scrollbar-thumb:hover { background: color-mix(in oklab, var(--sc-a
 .letter summary::-webkit-details-marker { display: none; }
 .letter summary:hover { border-color: var(--sc-ink); background: color-mix(in oklab, var(--sc-ink) 6%, transparent); }
 .letter summary:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+/* The same button, on the light sheet, at the end of the letter. */
+.letter__close {
+  margin-top: var(--sc-6); margin-left: calc(var(--letter-aside) + var(--letter-gap));
+  background: transparent; font-family: inherit;
+  color: var(--paper-ink); border-color: color-mix(in oklab, var(--paper-ink) 30%, transparent);
+}
+.letter__close:hover { border-color: var(--paper-ink); background: color-mix(in oklab, var(--paper-ink) 5%, transparent); }
+.letter__close:focus-visible { outline: 2px solid var(--paper-accent); outline-offset: 3px; }
+.letter__close .letter__chev--up { transform: translateY(2px) rotate(225deg); }
 .letter__chev {
   width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
   transform: translateY(-2px) rotate(45deg); transition: transform var(--sc-d-base) var(--sc-ease-out);

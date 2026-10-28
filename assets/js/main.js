@@ -70,9 +70,21 @@ window.SioufiStack = (function () {
   var clamp01 = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
   function paperTop() { return paper.getBoundingClientRect().top + (window.scrollY || 0); }
 
+  // Where a sheet holds is worked out against the SMALL viewport height
+  // (100svh: the screen with the phone's toolbars showing), not the current
+  // one. A phone's toolbars come back the moment the reader scrolls up, and
+  // a sheet held against the full-screen height would park its last lines,
+  // like a button, behind them. It also keeps the hold points from shifting
+  // while the toolbars slide in and out. Desktop: svh equals innerHeight.
+  var probe = document.createElement("div");
+  probe.setAttribute("aria-hidden", "true");
+  probe.style.cssText = "position:fixed;top:0;left:0;width:0;height:100vh;height:100svh;visibility:hidden;pointer-events:none;";
+  document.body.appendChild(probe);
+  function holdHeight() { return probe.offsetHeight || window.innerHeight; }
+
   function measure() {
     if (!paper) return;
-    var vh = window.innerHeight, run = 0;
+    var vh = Math.min(holdHeight(), window.innerHeight), run = 0;
     sheets.forEach(function (s, i) {
       var h = s.offsetHeight;
       offs[i] = run;
@@ -208,6 +220,34 @@ window.SioufiStack = (function () {
       window.scrollTo({ top: Math.max(0, top), behavior: behavior });
     });
   });
+
+  // -- the letter's own "close" button ---------------------------------------
+  // At the end of a long letter the "Read the full letter" button is far
+  // above, so the letter carries a close button of its own. Closing brings
+  // the reader back to the top of the testimonial, where the letter opened,
+  // rather than leaving them wherever the shorter page now happens to put
+  // them.
+  var letter = document.querySelector(".letter");
+  var closeBtn = letter && letter.querySelector(".letter__close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      letter.open = false;
+      var section = letter.closest("section");
+      var summary = letter.querySelector("summary");
+      var barH = bar.getBoundingClientRect().height;
+      // The section is a sticky sheet, so its real page position comes from
+      // the stack. The button's offset inside it is the difference of the
+      // two on-screen boxes, which move together, so it holds even while
+      // the sheet is stuck. (summary.offsetTop can't be used: browsers
+      // measure it from the <details>, not the section.)
+      var inner = summary.getBoundingClientRect().top - section.getBoundingClientRect().top;
+      var top = window.SioufiStack.flowTop(section) + inner - barH - 24;
+      // instant, not auto: the page sets scroll-behavior:smooth, and auto
+      // would animate a jump of several screens.
+      window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+      summary.focus({ preventScroll: true });
+    });
+  }
 
   // -- current-section highlight ---------------------------------------------
   var links = nav.querySelectorAll("a[href^='#']");
