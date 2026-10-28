@@ -1,0 +1,10 @@
+# GitHub Pages build settings (Jekyll).
+# These files stay in the repo but are not published on drgeorgessioufi.ca:
+# working notes and tooling, not part of the website.
+exclude:
+  - CHANGELOG.md
+  - scrollcraft/
+  - package.json
+  - package-lock.json
+  - node_modules/
+  - lab/
