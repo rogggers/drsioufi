@@ -306,68 +306,6 @@ window.SioufiStack = (function () {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 })();
 
-// ---- analytics consent (Quebec Law 25) ------------------------------------
-// Google Analytics is not on the page by default: it loads only once the
-// reader clicks Accept in the notice, and the choice is remembered. The
-// footer's "Cookie settings" reopens the notice; declining after accepting
-// stops tracking and removes the _ga cookies.
-(function () {
-  var CONSENT_KEY = "sioufi-analytics-consent";
-  var GA_ID = "G-RK56FDYPW7";
-  var banner = document.getElementById("consent-banner");
-  var loaded = false;
-
-  function loadAnalytics() {
-    window["ga-disable-" + GA_ID] = false;
-    if (loaded) return;
-    loaded = true;
-    var s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag("js", new Date());
-    window.gtag("config", GA_ID);
-  }
-
-  // _ga cookies may be set on the bare host or a parent domain; clear both.
-  function disableAnalytics() {
-    window["ga-disable-" + GA_ID] = true;
-    var parts = location.hostname.split(".");
-    document.cookie.split(";").forEach(function (c) {
-      var name = c.split("=")[0].trim();
-      if (name.indexOf("_ga") !== 0) return;
-      var expire = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-      document.cookie = expire;
-      for (var i = 0; i < parts.length - 1; i++) {
-        document.cookie = expire + "; domain=." + parts.slice(i).join(".");
-      }
-    });
-  }
-
-  function setConsent(value) {
-    try { localStorage.setItem(CONSENT_KEY, value); } catch (e) {}
-    if (value === "granted") loadAnalytics(); else disableAnalytics();
-  }
-
-  var consent = null;
-  try { consent = localStorage.getItem(CONSENT_KEY); } catch (e) {}
-  if (consent === "granted") loadAnalytics();
-  if (!banner) return;
-  if (!consent) banner.hidden = false;
-
-  banner.querySelectorAll("[data-consent]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      setConsent(btn.getAttribute("data-consent"));
-      banner.hidden = true;
-    });
-  });
-  document.querySelectorAll("[data-consent-open]").forEach(function (btn) {
-    btn.addEventListener("click", function () { banner.hidden = false; });
-  });
-})();
-
 // ---- mount the engine -------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
   if (window.ScrollCraft) window.ScrollCraft.mount(document);
